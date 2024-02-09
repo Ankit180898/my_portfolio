@@ -23,7 +23,6 @@ class _TopBarContentsState extends State<TopBarContents> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Container(
-      color: Colors.white.withOpacity(0.5),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Expanded(
@@ -39,6 +38,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                 width: size.width / 15,
               ),
               InkWell(
+                hoverColor: Colors.transparent,
                   onHover: (val) {
                     setState(() {
                       val ? _isHovering[1] = true : _isHovering[1] = false;
@@ -52,7 +52,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                         "Home",
                         style: TextStyle(
                             fontSize: 16,
-                            color: _isHovering[1] ? Colors.blue : Colors.blue),
+                            color: _isHovering[1] ? Colors.black : Colors.black),
                       ),
                       SizedBox(height: 5,),
                       Visibility(
@@ -63,7 +63,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                       child: Container(
                         height: 2,
                         width: 20,
-                        color: Colors.black,
+                        color: Colors.white,
 
                       )
 
@@ -74,6 +74,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                 width: size.width / 15,
               ),
               InkWell(
+                  hoverColor: Colors.transparent,
                   onHover: (val) {
                     setState(() {
                       val ? _isHovering[2] = true : _isHovering[2] = false;
@@ -87,7 +88,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                         "Home",
                         style: TextStyle(
                             fontSize: 16,
-                            color: _isHovering[2] ? Colors.blue : Colors.blue),
+                            color: _isHovering[2] ? Colors.black : Colors.black),
                       ),
                       SizedBox(height: 5,),
                       Visibility(
@@ -98,7 +99,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                           child: Container(
                             height: 2,
                             width: 20,
-                            color: Colors.black,
+                            color: Colors.white,
 
                           )
 
@@ -109,6 +110,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                 width: size.width / 15,
               ),
               InkWell(
+                  hoverColor: Colors.transparent,
                   onHover: (val) {
                     setState(() {
                       val ? _isHovering[3] = true : _isHovering[3] = false;
@@ -122,7 +124,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                         "Home",
                         style: TextStyle(
                             fontSize: 16,
-                            color: _isHovering[3] ? Colors.blue : Colors.blue),
+                            color: _isHovering[3] ? Colors.black : Colors.black),
                       ),
                       SizedBox(height: 5,),
                       Visibility(
@@ -133,7 +135,7 @@ class _TopBarContentsState extends State<TopBarContents> {
                           child: Container(
                             height: 2,
                             width: 20,
-                            color: Colors.black,
+                            color: Colors.white,
 
                           )
 
