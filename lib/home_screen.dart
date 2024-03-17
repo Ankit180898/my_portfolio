@@ -1,6 +1,9 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:portfolio/side_nav.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:glassmorphism/glassmorphism.dart';
+import 'package:portfolio/constants.dart';
 import 'package:portfolio/top_bar_contents.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,95 +13,104 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.deepPurple.withOpacity(0.6),
-      appBar: PreferredSize(
-          preferredSize: Size(size.width, size.height * 0.20),
-          child: TopBarContents()),
-      // drawer: ,
-      body: SingleChildScrollView(
-        child: Column(
+        backgroundColor: Color(0xff222222),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Center(
-                child: Stack(
-              children: [
-                Image.asset(
-                  "assets/heading_image.png",
-                  height: size.height * 0.5,
-                  width: size.width * 0.6,
-                ),
-                Positioned(
-                    top: 100,
-                    left: 200,
-                    child: Image.asset(
-                      "assets/linkedin-logo.png",
-                      height: size.height * 0.050,
-                      width: size.width * 0.050,
-                    )),
-                Positioned(
-                    top: 200,
-                    left: 200,
-                    child: Image.asset(
-                      "assets/github.png",
-                      height: size.height * 0.050,
-                      width: size.width * 0.050,
-                    )),
-                Positioned(
-                    top: 300,
-                    left: 200,
-                    child: Image.asset(
-                      "assets/dribbble-logo.png",
-                      height: size.height * 0.050,
-                      width: size.width * 0.050,
-                    )),
-              ],
-            )),
-            const SizedBox(
-              height: 10,
-            ),
             Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const SizedBox(width: 20.0, height: 100.0),
-                const Text(
-                  'Hi, I\'m Ankit, A',
-                  style: TextStyle(fontSize: 43.0, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(width: 20.0, height: 100.0),
-                DefaultTextStyle(
-                  style: const TextStyle(
-                    fontSize: 43.0,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0, right: 32.0),
+                  child: GlassmorphicContainer(
+                    height: size.height * 0.3,
+                    width: size.width * 0.04,
+                    borderRadius: 15,
+                    blur: 15,
+                    alignment: Alignment.center,
+                    border: 2,
+                    linearGradient: LinearGradient(colors: [
+                      Colors.white.withOpacity(0.2),
+                      buttonColor.withOpacity(0.2)
+                    ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                    borderGradient: LinearGradient(colors: [
+                      buttonColor.withOpacity(0.2),
+                      Colors.white70.withOpacity(0.2)
+                    ]),
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: SvgPicture.asset(
+                              "profile.svg",
+                              color: iconColor,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: SvgPicture.asset(
+                              "github.svg",
+                              color: iconColor,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: SvgPicture.asset(
+                              "linkedln.svg",
+                              color: iconColor,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          IconButton(
+                            onPressed: () {},
+                            icon: SvgPicture.asset(
+                              "dribble.svg",
+                              color: iconColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  child: AnimatedTextKit(
-                    isRepeatingAnimation: true,
-                    repeatForever: true,
-                    animatedTexts: [
-                      WavyAnimatedText('Developer',
-                          textStyle: TextStyle(
-                              fontSize: 43.0, fontWeight: FontWeight.bold)),
-                   ],
-                    onTap: () {
-                      print("Tap Event");
-                    },
-                  ),
                 ),
+                Spacer(),
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          "Hi, Im Ankit ",
+                          style: salutationTextStyle,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          "Flutter Developer",
+                          style: titleText,
+                          maxLines: 2,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                Spacer()
               ],
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              height: 100,
-              width: size.width * 0.35,
-              child: Text(
-                "Passionate Flutter developer dedicated to crafting seamless cross-platform solutions.",
-              maxLines: 5,
-                textAlign: TextAlign.center,
-              ),
-            )
           ],
-        ),
-      ),
-    );
+        ));
   }
 }
