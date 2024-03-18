@@ -28,63 +28,65 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    InkWell(
-                        onHover: (val) {
-                          isHovering.value = val;
-                        },
-                        child: FlipCard(
-                          autoFlipDuration: Duration(seconds: 2),
-                          front: Container(
-                            width: 200,
-                            height: 200,
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: buttonColor.withOpacity(0.2),
-                                  offset: const Offset(5.0, 5.0),
-                                  blurRadius: 20.0,
-                                  spreadRadius: 2.0,
-                                ), //BoxShadow
-                                BoxShadow(
-                                  color: Colors.white70.withOpacity(0.2),
-                                  offset: const Offset(0.0, 0.0),
-                                  blurRadius: 20.0,
-                                  spreadRadius: 2.0,
-                                ), //BoxShadow
-                              ],
-                              shape: BoxShape.circle,
-                            ),
-                            child: CircleAvatar(
-                              backgroundImage: AssetImage('assets/mine.jpg'),
-                            ),
-                          ),
-                          back: Container(
-                            width: 200,
-                            height: 200,
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: buttonColor.withOpacity(0.2),
-                                  offset: const Offset(5.0, 5.0),
-                                  blurRadius: 20.0,
-                                  spreadRadius: 2.0,
-                                ), //BoxShadow
-                                BoxShadow(
-                                  color: Colors.white70.withOpacity(0.2),
-                                  offset: const Offset(0.0, 0.0),
-                                  blurRadius: 20.0,
-                                  spreadRadius: 2.0,
-                                ), //BoxShadow
-                              ],
-                              shape: BoxShape.circle,
-                            ),
-                            child: CircleAvatar(
-                              backgroundImage: AssetImage(
-                                'assets/logo.png',
-                              ),
-                            ),
-                          ),
-                        )),
+                    FlipCard(
+                      flipOnTouch: true,
+                      front: Container(
+                        width: 200,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: buttonColor.withOpacity(0.1),
+                              offset: const Offset(5.0, 5.0),
+                              blurRadius: 25.0,
+                              spreadRadius: 5.0,
+                            ), //BoxShadow
+                            BoxShadow(
+                              color: Colors.white70.withOpacity(0.1),
+                              offset: const Offset(0.0, 0.0),
+                              blurRadius: 25.0,
+                              spreadRadius: 5.0,
+                            ), //BoxShadow
+                          ],
+                          shape: BoxShape.circle,
+                        ),
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage('assets/mine.jpg'),
+                        ),
+                      ),
+                      back: Container(
+                        width: 200,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: buttonColor.withOpacity(0.2),
+                              offset: const Offset(5.0, 5.0),
+                              blurRadius: 20.0,
+                              spreadRadius: 2.0,
+                            ), //BoxShadow
+                            BoxShadow(
+                              color: Colors.white70.withOpacity(0.2),
+                              offset: const Offset(0.0, 0.0),
+                              blurRadius: 20.0,
+                              spreadRadius: 2.0,
+                            ), //BoxShadow
+                          ],
+                          shape: BoxShape.circle,
+                        ),
+                        child: CircleAvatar(
+                          backgroundColor: buttonColor,
+                          // Adjust the fit of the image
+                          child: Image.asset(
+                            "assets/logo.png",
+                            color: textColor,
+                            height: 30,
+                            filterQuality: FilterQuality.high,
+                            fit: BoxFit.cover,
+                          ), // Uncomment this line if you want the image to cover the container
+                        ),
+                      ),
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
