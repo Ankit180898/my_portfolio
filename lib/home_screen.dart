@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flip_card/flip_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -27,8 +28,68 @@ class HomeScreen extends StatelessWidget {
               children: [
                 Column(
                   children: [
+                    InkWell(
+                        onHover: (val) {
+                          isHovering.value = val;
+                        },
+                        child: FlipCard(
+                          autoFlipDuration: Duration(seconds: 2),
+                          front: Container(
+                            width: 200,
+                            height: 200,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: buttonColor.withOpacity(0.2),
+                                  offset: const Offset(5.0, 5.0),
+                                  blurRadius: 20.0,
+                                  spreadRadius: 2.0,
+                                ), //BoxShadow
+                                BoxShadow(
+                                  color: Colors.white70.withOpacity(0.2),
+                                  offset: const Offset(0.0, 0.0),
+                                  blurRadius: 20.0,
+                                  spreadRadius: 2.0,
+                                ), //BoxShadow
+                              ],
+                              shape: BoxShape.circle,
+                            ),
+                            child: CircleAvatar(
+                              backgroundImage: AssetImage('assets/mine.jpg'),
+                            ),
+                          ),
+                          back: Container(
+                            width: 200,
+                            height: 200,
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: buttonColor.withOpacity(0.2),
+                                  offset: const Offset(5.0, 5.0),
+                                  blurRadius: 20.0,
+                                  spreadRadius: 2.0,
+                                ), //BoxShadow
+                                BoxShadow(
+                                  color: Colors.white70.withOpacity(0.2),
+                                  offset: const Offset(0.0, 0.0),
+                                  blurRadius: 20.0,
+                                  spreadRadius: 2.0,
+                                ), //BoxShadow
+                              ],
+                              shape: BoxShape.circle,
+                            ),
+                            child: CircleAvatar(
+                              backgroundImage: AssetImage(
+                                'assets/logo.png',
+                              ),
+                            ),
+                          ),
+                        )),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Text(
-                      "Hi, Im Ankit ",
+                      "Hi, I'm Ankit ",
                       style: salutationTextStyle,
                     ),
                     const SizedBox(
@@ -43,10 +104,10 @@ class HomeScreen extends StatelessWidget {
                       height: 20,
                     ),
                     SizedBox(
-                      height: size.height * 0.20,
-                      width: size.width * 0.55,
+                      height: size.height * 0.10,
+                      width: size.width * 0.46,
                       child: Text(
-                        "Crafting elegant and innovative Flutter applications,with captivating design for better user experiences.",
+                        "Crafting innovative Flutter applications,with captivating design for better user experiences.",
                         style: normalText,
                         maxLines: 2,
                         textAlign: TextAlign.center,
@@ -66,7 +127,7 @@ class HomeScreen extends StatelessWidget {
                             isHovering.value = val;
                           },
                           child: GlassmorphicContainer(
-                            height: size.height * 0.1,
+                            height: size.height * 0.09,
                             width: size.width * 0.15,
                             borderRadius: 50,
                             blur: 15,
