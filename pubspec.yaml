@@ -33,9 +33,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.10+1
+  get: ^4.6.6
   glassmorphism: ^3.0.0
   google_fonts: null
   hovering: ^1.0.4
+  url_launcher: ^6.2.5
 
 dev_dependencies:
   flutter_lints: ^2.0.0
