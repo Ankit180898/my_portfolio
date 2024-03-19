@@ -10,14 +10,14 @@ const Color iconColor = Color(0xffA8A8A8);
 const Color textColor = Color(0xffffffff);
 
 var salutationTextStyle = GoogleFonts.poppins(
-  textStyle: const TextStyle(
+  textStyle: TextStyle(
     color: iconColor,
     fontSize: 30,
     fontWeight: FontWeight.w600,
   ),
 );
 var titleText = GoogleFonts.epilogue(
-  textStyle: const TextStyle(
+  textStyle: TextStyle(
     color: buttonColor,
     height: 1.2,
     fontSize: 72,
@@ -25,6 +25,6 @@ var titleText = GoogleFonts.epilogue(
   ),
 );
 var normalText = GoogleFonts.poppins(
-  textStyle: const TextStyle(
-      color: iconColor, fontSize: 20, fontWeight: FontWeight.normal),
+  textStyle:
+      TextStyle(color: iconColor, fontSize: 20, fontWeight: FontWeight.normal),
 );
