@@ -4,22 +4,16 @@ class Responsive extends StatelessWidget {
   const Responsive(
       {super.key,
       required this.desktop,
-      required this.largeMobile,
       required this.mobile,
       required this.tablet,
       this.extraLargeScreen});
   final Widget desktop;
-  final Widget? largeMobile;
   final Widget mobile;
   final Widget? tablet;
   final Widget? extraLargeScreen;
 
   static bool isMobile(BuildContext context) {
-    return MediaQuery.sizeOf(context).width <= 500;
-  }
-
-  static bool isLargeMobile(BuildContext context) {
-    return MediaQuery.sizeOf(context).width <= 700;
+    return MediaQuery.sizeOf(context).width <= 600;
   }
 
   static bool isTablet(BuildContext context) {
@@ -43,8 +37,6 @@ class Responsive extends StatelessWidget {
       return desktop;
     } else if (size.width >= 700 && tablet != null) {
       return tablet!;
-    } else if (size.width >= 500 && largeMobile != null) {
-      return largeMobile!;
     } else {
       return mobile;
     }

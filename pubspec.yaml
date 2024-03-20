@@ -33,17 +33,28 @@ dependencies:
   flip_card: ^0.7.0
   flutter:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
   flutter_svg: ^2.0.10+1
   get: ^4.6.6
   glassmorphism: ^3.0.0
-  google_fonts: null
-  hovering: ^1.0.4
+  google_fonts: 
   url_launcher: ^6.2.5
+
 
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path: "assets/play_store.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/play_store.png"
+    background_color: "#ffffff"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
