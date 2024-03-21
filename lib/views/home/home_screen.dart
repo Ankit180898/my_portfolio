@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:portfolio/views/home/components/demo_widget.dart';
 import 'package:portfolio/res/constants.dart';
-import 'package:portfolio/views/home/components/download_button.dart';
 import 'package:portfolio/views/home/components/flip_profile_card.dart';
 import 'package:portfolio/views/home/components/footer_content.dart';
 import 'package:portfolio/views/home/components/social_media_column.dart';
@@ -15,8 +14,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    RxBool isHovering = false.obs;
-    RxBool isSideMenuHovering = false.obs;
     return Scaffold(
       backgroundColor: primaryColor,
       body: Stack(
@@ -117,65 +114,51 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 40),
                     Responsive(
-                      desktop: AnimatedContainer(
-                        height: displayHeight(context) * 0.07,
-                        width: displayWidth(context) * 0.12,
-                        duration: const Duration(milliseconds: 200),
-                        child: DownloadButton(
-                          isHovering: isHovering,
+                        desktop: GlassButton(
+                          height: displayHeight(context) * 0.07,
+                          width: displayHeight(context) * 0.25,
+                          text: "Download CV",
+                          textSize: 20,
                         ),
-                      ),
-                      tablet: AnimatedContainer(
-                        height: displayHeight(context) * 0.05,
-                        width: displayWidth(context) * 0.25,
-                        duration: const Duration(milliseconds: 200),
-                        child: DownloadButton(
-                          isHovering: isHovering,
+                        tablet: GlassButton(
+                          height: displayHeight(context) * 0.07,
+                          width: displayHeight(context) * 0.25,
+                          text: "Download CV",
+                          textSize: 20,
                         ),
-                      ),
-                      mobile: AnimatedContainer(
-                        height: displayHeight(context) * 0.05,
-                        width: displayWidth(context) * 0.25,
-                        duration: const Duration(milliseconds: 200),
-                        child: DownloadButton(
-                          isHovering: isHovering,
-                        ),
-                      ),
-                    ),
+                        mobile: GlassButton(
+                          height: displayHeight(context) * 0.07,
+                          width: displayHeight(context) * 0.25,
+                          textSize: 20,
+                          text: "Download CV",
+                        )),
                   ],
                 ),
               ],
             ),
           ),
-          Responsive(
+          const Responsive(
             desktop: Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: const EdgeInsets.only(left: 16.0),
-                child: AnimatedContainer(
-                  height: displayHeight(context) * 0.30,
-                  width: displayWidth(context) * 0.04,
-                  duration: const Duration(milliseconds: 200),
-                  child: SocialMediaIconList(
-                    isSideMenuHovering: isSideMenuHovering,
-                  ),
-                ),
+                padding: EdgeInsets.only(left: 16.0),
+                child: SocialMediaIconList(),
               ),
             ),
-            tablet: const Align(
+            tablet: Align(
               alignment: Alignment.topRight,
               child: Padding(
                   padding: EdgeInsets.only(right: 16.0, top: 16.0),
                   child: SocialMediaIconColumn()),
             ),
-            mobile: const Align(
+            mobile: Align(
               alignment: Alignment.topRight,
               child: Padding(
                   padding: EdgeInsets.only(right: 16.0, top: 16.0),
                   child: SocialMediaIconColumn()),
             ),
           ),
-          const FooterContent()
+          const Positioned(bottom: 0, left: 0, right: 0, child: FooterContent())
         ],
       ),
     );

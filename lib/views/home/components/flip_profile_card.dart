@@ -31,7 +31,7 @@ class FlipCardProfile extends StatelessWidget {
           shape: BoxShape.circle,
         ),
         child: CircleAvatar(
-          backgroundImage: AssetImage('assets/mine.jpg'),
+          backgroundImage: AssetImage('mine.jpg'),
         ),
       ),
       back: Container(
@@ -58,7 +58,7 @@ class FlipCardProfile extends StatelessWidget {
           backgroundColor: buttonColor,
           // Adjust the fit of the image
           child: Image.asset(
-            "assets/logo.png",
+            "logo.png",
             color: textColor,
             height: 30,
             filterQuality: FilterQuality.high,

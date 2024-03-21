@@ -1,0 +1,66 @@
+import 'package:flutter/material.dart';
+import 'package:portfolio/res/size_helpers.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
+import '../../../res/constants.dart';
+
+class GlassButton extends StatefulWidget {
+  final String text;
+  final double height;
+  final double width;
+  double textSize;
+
+  GlassButton(
+      {required this.text,
+      required this.textSize,
+      required this.height,
+      required this.width});
+
+  @override
+  _GlassButtonState createState() => _GlassButtonState();
+}
+
+class _GlassButtonState extends State<GlassButton> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        launchUrlString(
+            'https://drive.google.com/file/d/1lZJz7b190mjf756-wTrnKvPTAS4o8wPz/view?usp=sharing');
+      },
+      onHover: (hover) {
+        setState(() {
+          _isHovered = hover;
+        });
+      },
+      child: Container(
+        height: widget.height,
+        width: widget.width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(displayWidth(context) * 0.40),
+          gradient: _isHovered == false
+              ? LinearGradient(colors: [
+                  Colors.white70.withOpacity(0.2),
+                  buttonColor.withOpacity(0.2)
+                ], begin: Alignment.topLeft, end: Alignment.bottomRight)
+              : LinearGradient(colors: [
+                  buttonColor.withOpacity(0.3),
+                  buttonColor.withOpacity(0.3)
+                ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+          border: Border.all(
+            color: _isHovered ? buttonColor : Colors.white70.withOpacity(0.2),
+            width: _isHovered ? 3 : 2,
+          ),
+        ),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(widget.text, style: normalText(widget.textSize)),
+          ),
+        ),
+      ),
+    );
+  }
+}

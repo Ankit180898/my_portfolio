@@ -82,7 +82,7 @@ class AnimatedImageContainerState extends State<AnimatedImageContainer>
                 shape: BoxShape.circle,
               ),
               child: Image.asset(
-                "assets/logo.png",
+                "logo.png",
                 color: textColor,
                 height: 30,
                 filterQuality: FilterQuality.high,
