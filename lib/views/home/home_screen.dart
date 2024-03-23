@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/views/home/components/demo_widget.dart';
+import 'package:portfolio/views/home/components/glass_button.dart';
 import 'package:portfolio/res/constants.dart';
 import 'package:portfolio/views/home/components/flip_profile_card.dart';
 import 'package:portfolio/views/home/components/footer_content.dart';
@@ -116,20 +116,20 @@ class HomeScreen extends StatelessWidget {
                     Responsive(
                         desktop: GlassButton(
                           height: displayHeight(context) * 0.07,
-                          width: displayHeight(context) * 0.25,
+                          width: displayWidth(context) * 0.15,
                           text: "Download CV",
                           textSize: 20,
                         ),
                         tablet: GlassButton(
                           height: displayHeight(context) * 0.07,
-                          width: displayHeight(context) * 0.25,
+                          width: displayWidth(context) * 0.20,
                           text: "Download CV",
-                          textSize: 20,
+                          textSize: 16,
                         ),
                         mobile: GlassButton(
                           height: displayHeight(context) * 0.07,
-                          width: displayHeight(context) * 0.25,
-                          textSize: 20,
+                          width: displayWidth(context) * 0.30,
+                          textSize: 16,
                           text: "Download CV",
                         )),
                   ],
@@ -137,21 +137,24 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          const Responsive(
+          Responsive(
             desktop: Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: EdgeInsets.only(left: 16.0),
-                child: SocialMediaIconList(),
+                padding: const EdgeInsets.only(left: 16.0),
+                child: SocialMediaIconList(
+                  height: displayHeight(context) * 0.30,
+                  width: displayWidth(context) * 0.04,
+                ),
               ),
             ),
-            tablet: Align(
+            tablet: const Align(
               alignment: Alignment.topRight,
               child: Padding(
                   padding: EdgeInsets.only(right: 16.0, top: 16.0),
                   child: SocialMediaIconColumn()),
             ),
-            mobile: Align(
+            mobile: const Align(
               alignment: Alignment.topRight,
               child: Padding(
                   padding: EdgeInsets.only(right: 16.0, top: 16.0),

@@ -4,13 +4,15 @@ import 'package:portfolio/views/home/components/social_media_column.dart';
 import '../../../res/constants.dart';
 
 class SocialMediaIconList extends StatelessWidget {
-  const SocialMediaIconList({Key? key});
+  const SocialMediaIconList({Key? key, required this.height, required this.width});
+  final double height;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: displayHeight(context) * 0.30,
-      width: displayWidth(context) * 0.04,
+      height: height,
+      width: width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         gradient: LinearGradient(
@@ -30,3 +32,5 @@ class SocialMediaIconList extends StatelessWidget {
     );
   }
 }
+//height: displayHeight(context) * 0.30,
+      // width: displayWidth(context) * 0.04,
