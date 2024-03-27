@@ -10,11 +10,12 @@ class GlassButton extends StatefulWidget {
   final double width;
   double textSize;
 
-  GlassButton(
-      {required this.text,
-      required this.textSize,
-      required this.height,
-      required this.width});
+  GlassButton({
+    required this.text,
+    required this.textSize,
+    required this.height,
+    required this.width,
+  });
 
   @override
   _GlassButtonState createState() => _GlassButtonState();
@@ -39,7 +40,7 @@ class _GlassButtonState extends State<GlassButton> {
         height: widget.height,
         width: widget.width,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(displayWidth(context) * 0.40),
+          borderRadius: BorderRadius.circular(widget.height * 0.5),
           gradient: _isHovered == false
               ? LinearGradient(colors: [
                   Colors.white70.withOpacity(0.2),
@@ -56,8 +57,9 @@ class _GlassButtonState extends State<GlassButton> {
         ),
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(widget.text, style: normalText(widget.textSize)),
+            padding: EdgeInsets.all(widget.height * 0.15),
+            child: FittedBox(
+                child: Text(widget.text, style: normalText(widget.textSize))),
           ),
         ),
       ),

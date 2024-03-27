@@ -1,69 +1,90 @@
-import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-
-import '../../../res/constants.dart';
+import 'package:portfolio/res/constants.dart';
+import 'package:flip_card/flip_card.dart';
+import 'package:portfolio/res/size_helpers.dart';
+import 'package:portfolio/views/responsive.dart';
 
 class FlipCardProfile extends StatelessWidget {
-  const FlipCardProfile({super.key});
+  const FlipCardProfile({Key? key});
 
   @override
   Widget build(BuildContext context) {
+    return Responsive(
+      desktop: _buildFlipCard(context, widthFactor: 0.15),
+      tablet: _buildFlipCard(context, widthFactor: 0.2),
+      mobile: _buildFlipCard(context, widthFactor: 0.3),
+    );
+  }
+
+  Widget _buildFlipCard(BuildContext context, {required double widthFactor}) {
     return FlipCard(
       flipOnTouch: true,
-      front: Container(
-        width: 200,
-        height: 200,
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: buttonColor.withOpacity(0.1),
-              offset: const Offset(5.0, 5.0),
-              blurRadius: 25.0,
-              spreadRadius: 5.0,
-            ), //BoxShadow
-            BoxShadow(
-              color: Colors.white70.withOpacity(0.1),
-              offset: const Offset(0.0, 0.0),
-              blurRadius: 25.0,
-              spreadRadius: 5.0,
-            ), //BoxShadow
-          ],
-          shape: BoxShape.circle,
-        ),
-        child: CircleAvatar(
-          backgroundImage: AssetImage('mine.jpg'),
+      front: _buildAvatarContainer(context, widthFactor),
+      back: _buildLogoContainer(context, widthFactor),
+    );
+  }
+
+  Widget _buildAvatarContainer(BuildContext context, double widthFactor) {
+    return Container(
+      width: displayWidth(context) * widthFactor,
+      height: displayWidth(context) * widthFactor,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: buttonColor.withOpacity(0.1),
+            offset: const Offset(5.0, 5.0),
+            blurRadius: 25.0,
+            spreadRadius: 5.0,
+          ), //BoxShadow
+          BoxShadow(
+            color: Colors.white70.withOpacity(0.1),
+            offset: const Offset(0.0, 0.0),
+            blurRadius: 25.0,
+            spreadRadius: 5.0,
+          ), //BoxShadow
+        ],
+        shape: BoxShape.circle,
+      ),
+      child: ClipOval(
+        child: Image.asset(
+          "mine.jpg",
+          fit: BoxFit.cover,
         ),
       ),
-      back: Container(
-        width: 200,
-        height: 200,
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: buttonColor.withOpacity(0.2),
-              offset: const Offset(5.0, 5.0),
-              blurRadius: 20.0,
-              spreadRadius: 2.0,
-            ), //BoxShadow
-            BoxShadow(
-              color: Colors.white70.withOpacity(0.2),
-              offset: const Offset(0.0, 0.0),
-              blurRadius: 20.0,
-              spreadRadius: 2.0,
-            ), //BoxShadow
-          ],
-          shape: BoxShape.circle,
-        ),
-        child: CircleAvatar(
-          backgroundColor: buttonColor,
-          // Adjust the fit of the image
+    );
+  }
+
+  Widget _buildLogoContainer(BuildContext context, double widthFactor) {
+    return Container(
+      width: displayWidth(context) * widthFactor,
+      height: displayWidth(context) * widthFactor,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: buttonColor.withOpacity(0.2),
+            offset: const Offset(5.0, 5.0),
+            blurRadius: 20.0,
+            spreadRadius: 2.0,
+          ), //BoxShadow
+          BoxShadow(
+            color: Colors.white70.withOpacity(0.2),
+            offset: const Offset(0.0, 0.0),
+            blurRadius: 20.0,
+            spreadRadius: 2.0,
+          ), //BoxShadow
+        ],
+        shape: BoxShape.circle,
+      ),
+      child: CircleAvatar(
+        radius: 30,
+        backgroundColor: buttonColor,
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
           child: Image.asset(
             "logo.png",
             color: textColor,
-            height: 30,
-            filterQuality: FilterQuality.high,
             fit: BoxFit.cover,
-          ), // Uncomment this line if you want the image to cover the container
+          ),
         ),
       ),
     );

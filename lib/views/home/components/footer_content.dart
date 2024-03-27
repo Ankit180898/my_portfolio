@@ -69,7 +69,7 @@ class FooterContent extends StatelessWidget {
             ),
             Text(
               "© 2024 Ankit Kumar. All rights reserved.",
-              style: normalText(15),
+              style: normalText(10),
             ),
             const SizedBox(
               height: 5,
@@ -85,7 +85,7 @@ class FooterContent extends StatelessWidget {
                   children: [
                     Text(
                       "View Source",
-                      style: normalText(15),
+                      style: normalText(10),
                     ),
                     const SizedBox(
                       width: 5,
