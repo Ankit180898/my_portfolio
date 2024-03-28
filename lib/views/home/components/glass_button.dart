@@ -36,7 +36,8 @@ class _GlassButtonState extends State<GlassButton> {
           _isHovered = hover;
         });
       },
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
         height: widget.height,
         width: widget.width,
         decoration: BoxDecoration(

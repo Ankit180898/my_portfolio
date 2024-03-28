@@ -11,7 +11,7 @@ class FlipCardProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Responsive(
       desktop: _buildFlipCard(context, widthFactor: 0.15),
-      tablet: _buildFlipCard(context, widthFactor: 0.2),
+      tablet: _buildFlipCard(context, widthFactor: 0.15),
       mobile: _buildFlipCard(context, widthFactor: 0.3),
     );
   }
