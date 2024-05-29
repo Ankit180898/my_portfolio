@@ -3,8 +3,10 @@ import 'package:portfolio/views/home/components/glass_button.dart';
 import 'package:portfolio/res/constants.dart';
 import 'package:portfolio/views/home/components/flip_profile_card.dart';
 import 'package:portfolio/views/home/components/footer_content.dart';
+import 'package:portfolio/views/home/components/projects_pages.dart';
 import 'package:portfolio/views/home/components/social_media_column.dart';
 import 'package:portfolio/views/home/components/social_media_icon_list.dart';
+import 'package:portfolio/views/home/components/stack_image.dart';
 
 import '../../res/size_helpers.dart';
 import '../responsive.dart';
@@ -14,6 +16,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+      final PageController pageController = PageController();
+
     return Scaffold(
       backgroundColor: primaryColor,
       body: Column(
@@ -124,7 +128,7 @@ class HomeScreen extends StatelessWidget {
                             height: displayHeight(context) * 0.07,
                             width: displayHeight(context) * 0.25,
                             text: "Download CV",
-                            textSize: 20,
+                            textSize: 24,
                           ),
                           tablet: GlassButton(
                             height: displayHeight(context) * 0.07,
@@ -149,8 +153,7 @@ class HomeScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 16.0),
                       child: SocialMediaIconList(
-                        height: displayHeight(context) * 0.30,
-                        width: displayWidth(context) * 0.04,
+                        
                       ),
                     ),
                   ),
@@ -170,6 +173,31 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
+         Stack(
+        children: [
+          PageView(
+            controller: pageController,
+            pageSnapping: false,
+            scrollDirection: Axis.vertical,
+            children: projects.map((project) => ProjectPage(project: project)).toList(),
+          ),
+          Align(
+            alignment: const Alignment(0.5,0),
+            child: IgnorePointer(
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.8,
+                child: Stack(
+                  children: [
+                    for (int i = projects.length - 1; i >= 0; i--)
+                      StackImage(pageController: pageController, index: i),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
           FooterContent(),
         ],
       ),
