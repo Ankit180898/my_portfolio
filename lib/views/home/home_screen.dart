@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      final PageController pageController = PageController();
+    final PageController pageController = PageController();
 
     return Scaffold(
       backgroundColor: primaryColor,
@@ -152,9 +152,7 @@ class HomeScreen extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: const EdgeInsets.only(left: 16.0),
-                      child: SocialMediaIconList(
-                        
-                      ),
+                      child: SocialMediaIconList(),
                     ),
                   ),
                   tablet: const Align(
@@ -173,31 +171,6 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-         Stack(
-        children: [
-          PageView(
-            controller: pageController,
-            pageSnapping: false,
-            scrollDirection: Axis.vertical,
-            children: projects.map((project) => ProjectPage(project: project)).toList(),
-          ),
-          Align(
-            alignment: const Alignment(0.5,0),
-            child: IgnorePointer(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.8,
-                child: Stack(
-                  children: [
-                    for (int i = projects.length - 1; i >= 0; i--)
-                      StackImage(pageController: pageController, index: i),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
           FooterContent(),
         ],
       ),
