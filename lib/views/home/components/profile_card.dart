@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:glassmorphism/glassmorphism.dart';
-import 'package:portfolio/views/home/components/flip_profile_card.dart';
 
 import '../../../res/constants.dart';
 import '../../../res/size_helpers.dart';
 
 class ProfileCard extends StatelessWidget {
-  const ProfileCard({Key? key});
+  const ProfileCard({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +32,7 @@ class ProfileCard extends StatelessWidget {
             Container(
               width: displayWidth(context) * 0.10,
               height: displayWidth(context) * 0.10,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
               ),
               child: CircleAvatar(

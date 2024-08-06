@@ -5,7 +5,8 @@ import 'package:portfolio/res/size_helpers.dart';
 import 'package:portfolio/views/responsive.dart';
 
 class FlipCardProfile extends StatelessWidget {
-  const FlipCardProfile({Key? key});
+  const FlipCardProfile({super.key});
+
 
   @override
   Widget build(BuildContext context) {

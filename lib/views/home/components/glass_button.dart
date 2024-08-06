@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/res/size_helpers.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../res/constants.dart';
@@ -10,7 +9,7 @@ class GlassButton extends StatefulWidget {
   final double width;
   double textSize;
 
-  GlassButton({
+  GlassButton({super.key, 
     required this.text,
     required this.textSize,
     required this.height,

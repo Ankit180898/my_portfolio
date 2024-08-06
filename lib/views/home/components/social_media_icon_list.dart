@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/res/size_helpers.dart';
 import 'package:portfolio/views/home/components/social_media_column.dart';
 import '../../../res/constants.dart';
 
@@ -32,7 +31,7 @@ class SocialMediaIconList extends StatelessWidget {
               width: 2,
             ),
           ),
-          child: Center(
+          child: const Center(
             child: SocialMediaIconColumn(),
           ),
         );

@@ -3,20 +3,18 @@ import 'package:portfolio/views/home/components/glass_button.dart';
 import 'package:portfolio/res/constants.dart';
 import 'package:portfolio/views/home/components/flip_profile_card.dart';
 import 'package:portfolio/views/home/components/footer_content.dart';
-import 'package:portfolio/views/home/components/projects_pages.dart';
 import 'package:portfolio/views/home/components/social_media_column.dart';
 import 'package:portfolio/views/home/components/social_media_icon_list.dart';
-import 'package:portfolio/views/home/components/stack_image.dart';
 
 import '../../res/size_helpers.dart';
 import '../responsive.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key});
+  const HomeScreen({super.key});
+
 
   @override
   Widget build(BuildContext context) {
-    final PageController pageController = PageController();
 
     return Scaffold(
       backgroundColor: primaryColor,
@@ -147,21 +145,21 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Responsive(
+                const Responsive(
                   desktop: Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
+                      padding: EdgeInsets.only(left: 16.0),
                       child: SocialMediaIconList(),
                     ),
                   ),
-                  tablet: const Align(
+                  tablet: Align(
                     alignment: Alignment.topRight,
                     child: Padding(
                         padding: EdgeInsets.only(right: 16.0, top: 16.0),
                         child: SocialMediaIconColumn()),
                   ),
-                  mobile: const Align(
+                  mobile: Align(
                     alignment: Alignment.topRight,
                     child: Padding(
                         padding: EdgeInsets.only(right: 16.0, top: 16.0),
@@ -171,7 +169,7 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          FooterContent(),
+          const FooterContent(),
         ],
       ),
     );

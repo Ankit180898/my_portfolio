@@ -4,7 +4,7 @@ import 'package:portfolio/model/project_model.dart';
 class ProjectPage extends StatelessWidget {
   final Project project;
 
-  ProjectPage({required this.project});
+  const ProjectPage({super.key, required this.project});
 
   @override
   Widget build(BuildContext context) {
@@ -15,26 +15,26 @@ class ProjectPage extends StatelessWidget {
         children: [
           Text(
             project.title,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             project.subtitle,
-            style: TextStyle(fontSize: 18, color: Colors.grey),
+            style: const TextStyle(fontSize: 18, color: Colors.grey),
           ),
-          SizedBox(height: 16),
-          Text(
+          const SizedBox(height: 16),
+          const Text(
             'Project Links:',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
            GestureDetector(
               onTap: () {
                 // Handle link tap (open in browser or navigate)
               },
               child: Text(
                 project.projectLinks,
-                style: TextStyle(fontSize: 16, color: Colors.blue),
+                style: const TextStyle(fontSize: 16, color: Colors.blue),
               ),
             ),
          
