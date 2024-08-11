@@ -3,6 +3,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../res/constants.dart';
 
+// ignore: must_be_immutable
 class GlassButton extends StatefulWidget {
   final String text;
   final double height;
@@ -17,6 +18,7 @@ class GlassButton extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _GlassButtonState createState() => _GlassButtonState();
 }
 
