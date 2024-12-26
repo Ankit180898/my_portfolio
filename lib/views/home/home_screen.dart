@@ -3,6 +3,7 @@ import 'package:portfolio/views/home/components/glass_button.dart';
 import 'package:portfolio/res/constants.dart';
 import 'package:portfolio/views/home/components/flip_profile_card.dart';
 import 'package:portfolio/views/home/components/footer_content.dart';
+import 'package:portfolio/views/home/components/projects_pages.dart';
 import 'package:portfolio/views/home/components/social_media_column.dart';
 import 'package:portfolio/views/home/components/social_media_icon_list.dart';
 
@@ -16,14 +17,14 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryColor,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Stack(
-              children: [
-                Center(
-                  child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: displayHeight(context),
+              child: Stack(
+                children: [
+                  Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -142,34 +143,102 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                ),
-                const Responsive(
-                  desktop: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 16.0),
-                      child: SocialMediaIconList(),
+                  const Responsive(
+                    desktop: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 16.0),
+                        child: SocialMediaIconList(),
+                      ),
+                    ),
+                    tablet: Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 16.0, top: 16.0),
+                        child: SocialMediaIconColumn(),
+                      ),
+                    ),
+                    mobile: Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 16.0, top: 16.0),
+                        child: SocialMediaIconColumn(),
+                      ),
                     ),
                   ),
-                  tablet: Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                        padding: EdgeInsets.only(right: 16.0, top: 16.0),
-                        child: SocialMediaIconColumn()),
+                  Positioned(
+                    bottom: 20,
+                    left: 0,
+                    right: 0,
+                    child: ScrollIndicator(),
                   ),
-                  mobile: Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                        padding: EdgeInsets.only(right: 16.0, top: 16.0),
-                        child: SocialMediaIconColumn()),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const FooterContent(),
-        ],
+            ProjectsPage(),
+            const FooterContent(),
+          ],
+        ),
       ),
+    );
+  }
+}
+
+class ScrollIndicator extends StatefulWidget {
+  const ScrollIndicator({super.key});
+
+  @override
+  State<ScrollIndicator> createState() => _ScrollIndicatorState();
+}
+
+class _ScrollIndicatorState extends State<ScrollIndicator>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<Offset> _slideAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, -0.2),
+      end: const Offset(0, 0.2),
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    ));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SlideTransition(
+          position: _slideAnimation,
+          child: Icon(
+            Icons.keyboard_arrow_down,
+            color: buttonColor,
+            size: 32,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          'Scroll down to view projects',
+          style: normalText(14).copyWith(
+            letterSpacing: 1.2,
+          ),
+        ),
+      ],
     );
   }
 }

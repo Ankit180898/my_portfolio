@@ -11,8 +11,8 @@ class FlipCardProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Responsive(
-      desktop: _buildFlipCard(context, widthFactor: 0.15),
-      tablet: _buildFlipCard(context, widthFactor: 0.15),
+      desktop: _buildFlipCard(context, widthFactor: 0.13),
+      tablet: _buildFlipCard(context, widthFactor: 0.13),
       mobile: _buildFlipCard(context, widthFactor: 0.30),
     );
   }
@@ -60,32 +60,29 @@ class FlipCardProfile extends StatelessWidget {
       width: displayWidth(context) * widthFactor,
       height: displayWidth(context) * widthFactor,
       decoration: BoxDecoration(
+        color: buttonColor,
         boxShadow: [
           BoxShadow(
             color: buttonColor.withOpacity(0.2),
             offset: const Offset(5.0, 5.0),
             blurRadius: 20.0,
             spreadRadius: 2.0,
-          ), //BoxShadow
+          ),
           BoxShadow(
             color: Colors.white70.withOpacity(0.2),
             offset: const Offset(0.0, 0.0),
             blurRadius: 20.0,
             spreadRadius: 2.0,
-          ), //BoxShadow
+          ),
         ],
         shape: BoxShape.circle,
       ),
-      child: CircleAvatar(
-        radius: 30,
-        backgroundColor: buttonColor,
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Image.asset(
-            "logo.png",
-            color: textColor,
-            fit: BoxFit.cover,
-          ),
+      child: Padding(
+        padding: EdgeInsets.all(displayWidth(context) * 0.02),
+        child: Image.asset(
+          "logo.png",
+          color: textColor,
+          fit: BoxFit.contain,
         ),
       ),
     );

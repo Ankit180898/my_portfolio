@@ -28,9 +28,9 @@ TextStyle titleText(double size) => GoogleFonts.epilogue(
       ),
     );
 //20
-TextStyle normalText(double size) => GoogleFonts.poppins(
+TextStyle normalText(double size, {Color? textColor}) => GoogleFonts.poppins(
       textStyle: TextStyle(
-          color: iconColor, fontSize: size, fontWeight: FontWeight.normal),
+          color: textColor ?? iconColor, fontSize: size, fontWeight: FontWeight.normal),
     );
 
 final List<Project> projects = [
@@ -60,3 +60,6 @@ final List<Project> projects = [
       projectLinks: ""
     ),
   ];
+
+/// Default padding used throughout the app
+const double kDefaultPadding = 20.0;
