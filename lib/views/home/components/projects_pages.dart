@@ -25,6 +25,25 @@ class _ProjectsPageState extends State<ProjectsPage> {
       type: ProjectType.app,
     ),
     Project(
+      title: "Home|Home 4IM",
+      description:
+          "Home is a social networking app designed to support and connect individuals starting their new life in a foreign country. Our mission is to create a welcoming community where users can share experiences, ask questions, and find helpful resources.",
+      imageUrl: "3.png",
+      liveLink:
+          "https://play.google.com/store/apps/details?id=com.home4im&hl=en_US",
+      technologies: ["Flutter", "Firebase", "Playstore"],
+      type: ProjectType.app,
+    ),
+    Project(
+      title: "Home|Website",
+      description:
+          "Home is a social networking app designed to support and connect individuals starting their new life in a foreign country. Our mission is to create a welcoming community where users can share experiences, ask questions, and find helpful resources.",
+      imageUrl: "6.webp",
+      liveLink: "https://home4im.vercel.app/",
+      technologies: ["Flutter", "Firebase", "Vercel"],
+      type: ProjectType.web,
+    ),
+    Project(
       title: "FlutterStack",
       description:
           "Curated resources for Flutter Developers. A community-driven platform.",
@@ -75,6 +94,9 @@ class _ProjectsPageState extends State<ProjectsPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Get the screen width
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
       color: const Color(0xFF1E1E1E),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
@@ -93,121 +115,345 @@ class _ProjectsPageState extends State<ProjectsPage> {
           const SizedBox(height: 40),
 
           // Segmented Button
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Expanded(flex: 2, child: SizedBox()),
-              Expanded(
-                flex: 1,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedFilter = 'all';
-                    });
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 12.0),
-                    decoration: BoxDecoration(
-                      color: selectedFilter == 'all'
-                          ? buttonColor
-                          : Colors.transparent,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(8.0),
-                        bottomLeft: Radius.circular(8.0),
+          Responsive(
+            desktop: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Flexible(child: SizedBox()),
+                Flexible(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedFilter = 'all';
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      decoration: BoxDecoration(
+                        color: selectedFilter == 'all'
+                            ? buttonColor
+                            : Colors.transparent,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(24.0),
+                          bottomLeft: Radius.circular(24.0),
+                        ),
+                        border: Border.all(
+                          color: selectedFilter == 'all'
+                              ? buttonColor
+                              : Colors.grey.withAlpha(100),
+                        ),
                       ),
-                      border: Border.all(
-                        color:
-                            selectedFilter == 'all' ? buttonColor : Colors.grey,
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'All',
-                        style: normalText(
-                          16,
-                          textColor: selectedFilter == 'all'
-                              ? Colors.white
-                              : buttonColor,
+                      child: Center(
+                        child: Text(
+                          'All',
+                          style: normalText(
+                            16, // Adjust font size for mobile
+                            textColor: selectedFilter == 'all'
+                                ? Colors.white
+                                : buttonColor,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedFilter = 'apps';
-                    });
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 12.0),
-                    decoration: BoxDecoration(
-                      color: selectedFilter == 'apps'
-                          ? buttonColor
-                          : Colors.transparent,
-                      border: Border.all(
+                Flexible(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedFilter = 'apps';
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      decoration: BoxDecoration(
                         color: selectedFilter == 'apps'
                             ? buttonColor
-                            : Colors.grey,
+                            : Colors.transparent,
+                        border: Border.all(
+                          color: selectedFilter == 'apps'
+                              ? buttonColor
+                              : Colors.grey.withAlpha(100),
+                        ),
                       ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Apps',
-                        style: normalText(
-                          16,
-                          textColor: selectedFilter == 'apps'
-                              ? Colors.white
-                              : buttonColor,
+                      child: Center(
+                        child: Text(
+                          'Apps',
+                          style: normalText(
+                            16, // Adjust font size for mobile
+                            textColor: selectedFilter == 'apps'
+                                ? Colors.white
+                                : buttonColor,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedFilter = 'websites';
-                    });
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 12.0),
-                    decoration: BoxDecoration(
-                      color: selectedFilter == 'websites'
-                          ? buttonColor
-                          : Colors.transparent,
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(8.0),
-                        bottomRight: Radius.circular(8.0),
-                      ),
-                      border: Border.all(
+                Flexible(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedFilter = 'websites';
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      decoration: BoxDecoration(
                         color: selectedFilter == 'websites'
                             ? buttonColor
-                            : Colors.grey,
+                            : Colors.transparent,
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(24.0),
+                          bottomRight: Radius.circular(24.0),
+                        ),
+                        border: Border.all(
+                          color: selectedFilter == 'websites'
+                              ? buttonColor
+                              : Colors.grey.withAlpha(100),
+                        ),
                       ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Websites',
-                        style: normalText(
-                          16,
-                          textColor: selectedFilter == 'websites'
-                              ? Colors.white
-                              : buttonColor,
+                      child: Center(
+                        child: Text(
+                          'Websites',
+                          style: normalText(
+                            16, // Adjust font size for mobile
+                            textColor: selectedFilter == 'websites'
+                                ? Colors.white
+                                : buttonColor,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const Expanded(flex: 2, child: SizedBox()),
-            ],
+                const Flexible(child: SizedBox()),
+              ],
+            ),
+            mobile: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedFilter = 'all';
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      decoration: BoxDecoration(
+                        color: selectedFilter == 'all'
+                            ? buttonColor
+                            : Colors.transparent,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(24.0),
+                          bottomLeft: Radius.circular(24.0),
+                        ),
+                        border: Border.all(
+                          color: selectedFilter == 'all'
+                              ? buttonColor
+                              : Colors.grey.withAlpha(100),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'All',
+                          style: normalText(
+                            14, // Adjust font size for mobile
+                            textColor: selectedFilter == 'all'
+                                ? Colors.white
+                                : buttonColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedFilter = 'apps';
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      decoration: BoxDecoration(
+                        color: selectedFilter == 'apps'
+                            ? buttonColor
+                            : Colors.transparent,
+                        border: Border.all(
+                          color: selectedFilter == 'apps'
+                              ? buttonColor
+                              : Colors.grey.withAlpha(100),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Apps',
+                          style: normalText(
+                            14, // Adjust font size for mobile
+                            textColor: selectedFilter == 'apps'
+                                ? Colors.white
+                                : buttonColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedFilter = 'websites';
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      decoration: BoxDecoration(
+                        color: selectedFilter == 'websites'
+                            ? buttonColor
+                            : Colors.transparent,
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(24.0),
+                          bottomRight: Radius.circular(24.0),
+                        ),
+                        border: Border.all(
+                          color: selectedFilter == 'websites'
+                              ? buttonColor
+                              : Colors.grey.withAlpha(100),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Websites',
+                          style: normalText(
+                            14, // Adjust font size for mobile
+                            textColor: selectedFilter == 'websites'
+                                ? Colors.white
+                                : buttonColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            tablet: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedFilter = 'all';
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      decoration: BoxDecoration(
+                        color: selectedFilter == 'all'
+                            ? buttonColor
+                            : Colors.transparent,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(24.0),
+                          bottomLeft: Radius.circular(24.0),
+                        ),
+                        border: Border.all(
+                          color: selectedFilter == 'all'
+                              ? buttonColor
+                              : Colors.grey.withAlpha(100),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'All',
+                          style: normalText(
+                            16, // Adjust font size for mobile
+                            textColor: selectedFilter == 'all'
+                                ? Colors.white
+                                : buttonColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedFilter = 'apps';
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      decoration: BoxDecoration(
+                        color: selectedFilter == 'apps'
+                            ? buttonColor
+                            : Colors.transparent,
+                        border: Border.all(
+                          color: selectedFilter == 'apps'
+                              ? buttonColor
+                              : Colors.grey.withAlpha(100),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Apps',
+                          style: normalText(
+                            16, // Adjust font size for mobile
+                            textColor: selectedFilter == 'apps'
+                                ? Colors.white
+                                : buttonColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedFilter = 'websites';
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      decoration: BoxDecoration(
+                        color: selectedFilter == 'websites'
+                            ? buttonColor
+                            : Colors.transparent,
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(24.0),
+                          bottomRight: Radius.circular(24.0),
+                        ),
+                        border: Border.all(
+                          color: selectedFilter == 'websites'
+                              ? buttonColor
+                              : Colors.grey.withAlpha(100),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Websites',
+                          style: normalText(
+                            16, // Adjust font size for mobile
+                            textColor: selectedFilter == 'websites'
+                                ? Colors.white
+                                : buttonColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 20),
           // Display selected filter

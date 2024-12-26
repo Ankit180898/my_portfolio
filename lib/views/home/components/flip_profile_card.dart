@@ -81,7 +81,6 @@ class FlipCardProfile extends StatelessWidget {
         padding: EdgeInsets.all(displayWidth(context) * 0.02),
         child: Image.asset(
           "logo.png",
-          color: textColor,
           fit: BoxFit.contain,
         ),
       ),

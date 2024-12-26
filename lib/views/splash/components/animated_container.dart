@@ -82,7 +82,6 @@ class AnimatedImageContainerState extends State<AnimatedImageContainer>
               ),
               child: Image.asset(
                 "logo.png",
-                color: textColor,
                 height: 30,
                 filterQuality: FilterQuality.high,
                 fit: BoxFit.cover,
