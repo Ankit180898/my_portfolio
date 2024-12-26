@@ -12,7 +12,7 @@ class ProjectsPage extends StatefulWidget {
 }
 
 class _ProjectsPageState extends State<ProjectsPage> {
-  ProjectFilter selectedFilter = ProjectFilter.all;
+  String selectedFilter = 'all'; // Default selected filter
 
   final List<Project> allProjects = [
     Project(
@@ -58,14 +58,14 @@ class _ProjectsPageState extends State<ProjectsPage> {
   ];
 
   List<Project> get filteredProjects {
-    if (selectedFilter == ProjectFilter.all) return allProjects;
+    if (selectedFilter == 'all') return allProjects;
     return allProjects.where((project) {
       switch (selectedFilter) {
-        case ProjectFilter.apps:
+        case 'apps':
           return project.type == ProjectType.app;
-        case ProjectFilter.websites:
+        case 'websites':
           return project.type == ProjectType.web;
-        case ProjectFilter.designs:
+        case 'designs':
           return project.type == ProjectType.design;
         default:
           return true;
@@ -87,62 +87,131 @@ class _ProjectsPageState extends State<ProjectsPage> {
           ),
           const SizedBox(height: 8),
           Text(
-            "Stuffs that I build",
+            "From Concept to Creation",
             style: normalText(16),
           ),
           const SizedBox(height: 40),
-          Center(
-            heightFactor: 1.5,
-            child: SegmentedButton<ProjectFilter>(
-              segments: [
-                ButtonSegment<ProjectFilter>(
-                  value: ProjectFilter.all,
-                  label: Text('All', style: normalText(14)),
-                ),
-                ButtonSegment<ProjectFilter>(
-                  value: ProjectFilter.apps,
-                  label: Text('App', style: normalText(14)),
-                  // icon: const Icon(Icons.phone_android),
-                ),
-                ButtonSegment<ProjectFilter>(
-                  value: ProjectFilter.websites,
-                  label: Text('Website', style: normalText(14)),
-                  // icon: const Icon(Icons.web),
-                ),
-              ],
-              selected: {selectedFilter},
-              onSelectionChanged: (Set<ProjectFilter> newSelection) {
-                setState(() {
-                  selectedFilter = newSelection.first;
-                });
-              },
-              style: ButtonStyle(
-                shape: WidgetStateProperty.resolveWith<OutlinedBorder>(
-                  (Set<WidgetState> states) {
-                    return RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    );
+
+          // Segmented Button
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Expanded(flex: 2, child: SizedBox()),
+              Expanded(
+                flex: 1,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedFilter = 'all';
+                    });
                   },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 12.0),
+                    decoration: BoxDecoration(
+                      color: selectedFilter == 'all'
+                          ? buttonColor
+                          : Colors.transparent,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(8.0),
+                        bottomLeft: Radius.circular(8.0),
+                      ),
+                      border: Border.all(
+                        color:
+                            selectedFilter == 'all' ? buttonColor : Colors.grey,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'All',
+                        style: normalText(
+                          16,
+                          textColor: selectedFilter == 'all'
+                              ? Colors.white
+                              : buttonColor,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-                backgroundColor: WidgetStateProperty.resolveWith<Color>(
-                  (Set<WidgetState> states) {
-                    if (states.contains(WidgetState.selected)) {
-                      return buttonColor;
-                    }
-                    return Colors.transparent;
-                  },
-                ),
-                foregroundColor: WidgetStateProperty.resolveWith<Color>(
-                  (Set<WidgetState> states) {
-                    return states.contains(WidgetState.selected)
-                        ? Colors.white // White text and icon when selected
-                        : Colors.black; // Black text and icon when unselected
-                  },
-                ),
-                overlayColor: WidgetStateProperty.all(buttonColor),
               ),
-            ),
+              Expanded(
+                flex: 1,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedFilter = 'apps';
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 12.0),
+                    decoration: BoxDecoration(
+                      color: selectedFilter == 'apps'
+                          ? buttonColor
+                          : Colors.transparent,
+                      border: Border.all(
+                        color: selectedFilter == 'apps'
+                            ? buttonColor
+                            : Colors.grey,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Apps',
+                        style: normalText(
+                          16,
+                          textColor: selectedFilter == 'apps'
+                              ? Colors.white
+                              : buttonColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedFilter = 'websites';
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 12.0),
+                    decoration: BoxDecoration(
+                      color: selectedFilter == 'websites'
+                          ? buttonColor
+                          : Colors.transparent,
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(8.0),
+                        bottomRight: Radius.circular(8.0),
+                      ),
+                      border: Border.all(
+                        color: selectedFilter == 'websites'
+                            ? buttonColor
+                            : Colors.grey,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Websites',
+                        style: normalText(
+                          16,
+                          textColor: selectedFilter == 'websites'
+                              ? Colors.white
+                              : buttonColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const Expanded(flex: 2, child: SizedBox()),
+            ],
           ),
+          const SizedBox(height: 20),
+          // Display selected filter
+          Text('Selected Filter: $selectedFilter'),
           const SizedBox(height: 40),
           Responsive(
             mobile: ProjectGrid(
@@ -219,121 +288,273 @@ class _ProjectCardState extends State<ProjectCard> {
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      onEnter: (_) => setState(() => isHovered = true),
-      onExit: (_) => setState(() => isHovered = false),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        transform: Matrix4.identity()..scale(isHovered ? 1.03 : 1.0),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: const Color(0xFF2D2D2D),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withAlpha(51), // 0.2 * 255 = 51
-                blurRadius: 12,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Stack(
-                  children: [
-                    Container(
-                      height: double.infinity,
-                      color: const Color(0xff0C1116),
-                      // padding: const EdgeInsets.only(top: 20),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 16.0),
-                        child: Center(
-                          child: Image.asset(
-                            widget.project.imageUrl,
-                            width: double.infinity,
-                            fit: BoxFit.contain,
-                          ),
+      onEnter: (_) {
+        if (Responsive.isDesktop(context)) {
+          setState(() => isHovered = true);
+        }
+      },
+      onExit: (_) {
+        if (Responsive.isDesktop(context)) {
+          setState(() => isHovered = false);
+        }
+      },
+      child: Responsive.isMobile(context) || Responsive.isTablet(context)
+          ? GestureDetector(
+              onTap: () {
+                // Check if the device is mobile or tablet
+                if (Responsive.isMobile(context) ||
+                    Responsive.isTablet(context)) {
+                  // For mobile and tablet, check for live link first
+                  if (widget.project.liveLink != null &&
+                      widget.project.liveLink!.isNotEmpty) {
+                    launchUrlString(
+                        widget.project.liveLink!); // Open the live link
+                  } else if (widget.project.githubLink != null &&
+                      widget.project.githubLink!.isNotEmpty) {
+                    launchUrlString(
+                        widget.project.githubLink!); // Open the GitHub link
+                  } else {
+                    // Show a message if neither link is available
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content:
+                              Text('No live page or GitHub link available.')),
+                    );
+                  }
+                }
+              },
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                transform: Matrix4.identity()..scale(isHovered ? 1.03 : 1.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: const Color(0xFF2D2D2D),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withAlpha(51), // 0.2 * 255 = 51
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Stack(
+                          children: [
+                            Container(
+                              height: double.infinity,
+                              color: const Color(0xff0C1116),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 16.0),
+                                child: Center(
+                                  child: Image.asset(
+                                    widget.project.imageUrl,
+                                    width: double.infinity,
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            if (isHovered && (Responsive.isDesktop(context)))
+                              Container(
+                                color: Colors.black
+                                    .withAlpha(102), // 0.4 * 255 = 102
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      if (widget.project.githubLink != null)
+                                        IconButton(
+                                          splashColor:
+                                              Colors.black.withOpacity(0.4),
+                                          icon: const Icon(Icons.code,
+                                              color: Colors.white),
+                                          onPressed: () => launchUrlString(
+                                              widget.project.githubLink!),
+                                        ),
+                                      if (widget.project.liveLink != null)
+                                        IconButton(
+                                          icon: const Icon(Icons.launch,
+                                              color: Colors.white),
+                                          onPressed: () => launchUrlString(
+                                              widget.project.liveLink!),
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                          ],
                         ),
                       ),
-                    ),
-                    if (isHovered)
-                      Container(
-                        color: Colors.black.withAlpha(102), // 0.4 * 255 = 102
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              if (widget.project.githubLink != null)
-                                IconButton(
-                                  icon: const Icon(Icons.code,
-                                      color: Colors.white),
-                                  onPressed: () => launchUrlString(
-                                      widget.project.githubLink!),
-                                ),
-                              if (widget.project.liveLink != null)
-                                IconButton(
-                                  icon: const Icon(Icons.launch,
-                                      color: Colors.white),
-                                  onPressed: () =>
-                                      launchUrlString(widget.project.liveLink!),
-                                ),
-                            ],
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.project.title,
+                              style: titleText(20).copyWith(
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              widget.project.description,
+                              style: normalText(14),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 12),
+                            Wrap(
+                              spacing: 8,
+                              runSpacing: 8,
+                              children: widget.project.technologies
+                                  .map((tech) => Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 8,
+                                          vertical: 4,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFF3C3C3C),
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                        ),
+                                        child: Text(
+                                          tech,
+                                          style: normalText(12).copyWith(
+                                            color: Colors.white70,
+                                          ),
+                                        ),
+                                      ))
+                                  .toList(),
+                            ),
+                          ],
                         ),
                       ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(16),
+            )
+          : AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              transform: Matrix4.identity()..scale(isHovered ? 1.03 : 1.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: const Color(0xFF2D2D2D),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withAlpha(51), // 0.2 * 255 = 51
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                clipBehavior: Clip.antiAlias,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      widget.project.title,
-                      style: titleText(20).copyWith(
-                        color: Colors.white,
+                    Expanded(
+                      child: Stack(
+                        children: [
+                          Container(
+                            height: double.infinity,
+                            color: const Color(0xff0C1116),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 16.0),
+                              child: Center(
+                                child: Image.asset(
+                                  widget.project.imageUrl,
+                                  width: double.infinity,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
+                          ),
+                          if (isHovered && (Responsive.isDesktop(context)))
+                            Container(
+                              color: Colors.black
+                                  .withAlpha(102), // 0.4 * 255 = 102
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    if (widget.project.githubLink != null)
+                                      IconButton(
+                                        splashColor:
+                                            Colors.black.withOpacity(0.4),
+                                        icon: const Icon(Icons.code,
+                                            color: Colors.white),
+                                        onPressed: () => launchUrlString(
+                                            widget.project.githubLink!),
+                                      ),
+                                    if (widget.project.liveLink != null)
+                                      IconButton(
+                                        icon: const Icon(Icons.launch,
+                                            color: Colors.white),
+                                        onPressed: () => launchUrlString(
+                                            widget.project.liveLink!),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      widget.project.description,
-                      style: normalText(14),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 12),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: widget.project.technologies
-                          .map((tech) => Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 4,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF3C3C3C),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Text(
-                                  tech,
-                                  style: normalText(12).copyWith(
-                                    color: Colors.white70,
-                                  ),
-                                ),
-                              ))
-                          .toList(),
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.project.title,
+                            style: titleText(20).copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            widget.project.description,
+                            style: normalText(14),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 12),
+                          Wrap(
+                            spacing: 8,
+                            runSpacing: 8,
+                            children: widget.project.technologies
+                                .map((tech) => Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 4,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFF3C3C3C),
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: Text(
+                                        tech,
+                                        style: normalText(12).copyWith(
+                                          color: Colors.white70,
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

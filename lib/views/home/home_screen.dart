@@ -119,7 +119,17 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 40),
+                        const SizedBox(height: 20),
+                        const Responsive(
+                          mobile: Center(
+                              child:
+                                  SocialMediaIconColumn()), // Center for mobile
+                          tablet: Center(
+                              child:
+                                  SocialMediaIconColumn()), // Center for tablet
+                          desktop: SizedBox.shrink(), // No icons for desktop
+                        ),
+                        const SizedBox(height: 30),
                         Responsive(
                           desktop: GlassButton(
                             height: displayHeight(context) * 0.07,
@@ -151,22 +161,10 @@ class HomeScreen extends StatelessWidget {
                         child: SocialMediaIconList(),
                       ),
                     ),
-                    tablet: Align(
-                      alignment: Alignment.topRight,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 16.0, top: 16.0),
-                        child: SocialMediaIconColumn(),
-                      ),
-                    ),
-                    mobile: Align(
-                      alignment: Alignment.topRight,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 16.0, top: 16.0),
-                        child: SocialMediaIconColumn(),
-                      ),
-                    ),
+                    tablet: SizedBox.shrink(),
+                    mobile: SizedBox.shrink(),
                   ),
-                  Positioned(
+                  const Positioned(
                     bottom: 20,
                     left: 0,
                     right: 0,
@@ -175,7 +173,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            ProjectsPage(),
+            const ProjectsPage(),
             const FooterContent(),
           ],
         ),
@@ -225,7 +223,7 @@ class _ScrollIndicatorState extends State<ScrollIndicator>
       children: [
         SlideTransition(
           position: _slideAnimation,
-          child: Icon(
+          child: const Icon(
             Icons.keyboard_arrow_down,
             color: buttonColor,
             size: 32,

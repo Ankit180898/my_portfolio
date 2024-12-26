@@ -102,9 +102,9 @@ class _SocialMediaIconColumnState extends State<SocialMediaIconColumn> {
         ],
       ),
       tablet: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Spacer(),
           SocialMediaIcon(
             onTap: () {
               openEmail(email: "ankit.me180898@gmail.com");
@@ -113,28 +113,21 @@ class _SocialMediaIconColumnState extends State<SocialMediaIconColumn> {
             height: displayHeight(context) * 0.030,
             width: displayWidth(context) * 0.030,
           ),
-          const SizedBox(
-            width: 16,
-          ),
+          const SizedBox(width: 16),
           SocialMediaIcon(
             icon: 'github.svg',
             onTap: () => launchUrlString("https://github.com/Ankit180898"),
             height: displayHeight(context) * 0.025,
             width: displayWidth(context) * 0.025,
           ),
-          const SizedBox(
-            width: 16,
-          ),
+          const SizedBox(width: 16),
           SocialMediaIcon(
             icon: 'linkedln.svg',
-            onTap: () =>
-                launchUrlString("https://www.linkedin.com/in/ankitme1808/"),
+            onTap: () => launchUrlString("https://www.linkedin.com/in/ankitme1808/"),
             height: displayHeight(context) * 0.025,
             width: displayWidth(context) * 0.025,
           ),
-          const SizedBox(
-            width: 16,
-          ),
+          const SizedBox(width: 16),
           SocialMediaIcon(
             icon: 'dribble.svg',
             onTap: () => launchUrlString("https://dribbble.com/ankit-me180898"),
@@ -144,9 +137,9 @@ class _SocialMediaIconColumnState extends State<SocialMediaIconColumn> {
         ],
       ),
       mobile: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Spacer(),
           SocialMediaIcon(
             onTap: () {
               openEmail(email: "ankit.me180898@gmail.com");
@@ -155,28 +148,21 @@ class _SocialMediaIconColumnState extends State<SocialMediaIconColumn> {
             height: displayHeight(context) * 0.030,
             width: displayWidth(context) * 0.030,
           ),
-          const SizedBox(
-            width: 16,
-          ),
+          const SizedBox(width: 16),
           SocialMediaIcon(
             icon: 'github.svg',
             onTap: () => launchUrlString("https://github.com/Ankit180898"),
             height: displayHeight(context) * 0.025,
             width: displayWidth(context) * 0.025,
           ),
-          const SizedBox(
-            width: 16,
-          ),
+          const SizedBox(width: 16),
           SocialMediaIcon(
             icon: 'linkedln.svg',
-            onTap: () =>
-                launchUrlString("https://www.linkedin.com/in/ankitme1808/"),
+            onTap: () => launchUrlString("https://www.linkedin.com/in/ankitme1808/"),
             height: displayHeight(context) * 0.025,
             width: displayWidth(context) * 0.025,
           ),
-          const SizedBox(
-            width: 16,
-          ),
+          const SizedBox(width: 16),
           SocialMediaIcon(
             icon: 'dribble.svg',
             onTap: () => launchUrlString("https://dribbble.com/ankit-me180898"),
