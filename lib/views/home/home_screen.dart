@@ -31,125 +31,19 @@ class HomeScreen extends StatelessWidget {
                         const SizedBox(height: 20),
                         const FlipCardProfile(),
                         const SizedBox(height: 20),
-                        Responsive(
-                          desktop: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              "Hi, I'm Ankit ",
-                              style: salutationTextStyle(30),
-                            ),
-                          ),
-                          tablet: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              "Hi, I'm Ankit ",
-                              style: salutationTextStyle(30),
-                            ),
-                          ),
-                          mobile: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              "Hi, I'm Ankit ",
-                              style: salutationTextStyle(30),
-                            ),
-                          ),
-                        ),
+                        buildResponsiveSalutation(),
                         const SizedBox(height: 20),
-                        Responsive(
-                          desktop: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              "Flutter Developer",
-                              style: titleText(72),
-                              maxLines: 2,
-                            ),
-                          ),
-                          tablet: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              "Flutter Developer",
-                              style: titleText(64),
-                              maxLines: 2,
-                            ),
-                          ),
-                          mobile: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 32.0),
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                "Flutter Developer",
-                                style: titleText(58),
-                                maxLines: 2,
-                              ),
-                            ),
-                          ),
-                        ),
+                        buildResponsiveTitle(),
                         const SizedBox(height: 10),
-                        Responsive(
-                          desktop: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              "Crafting innovative Flutter applications, with captivating design \nfor better user experiences.",
-                              style: normalText(20),
-                              maxLines: 2,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          tablet: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              "Crafting innovative Flutter applications, with captivating design \nfor better user experiences.",
-                              style: normalText(20),
-                              maxLines: 2,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          mobile: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                "Crafting innovative Flutter applications, with captivating \ndesign for better user experiences.",
-                                style: normalText(20),
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
+                        buildResponsiveDescription(),
                         const SizedBox(height: 20),
                         const Responsive(
-                          mobile: Center(
-                              child:
-                                  SocialMediaIconColumn()), // Center for mobile
-                          tablet: Center(
-                              child:
-                                  SocialMediaIconColumn()), // Center for tablet
-                          desktop: SizedBox.shrink(), // No icons for desktop
+                          mobile: Center(child: SocialMediaIconColumn()),
+                          tablet: Center(child: SocialMediaIconColumn()),
+                          desktop: SizedBox.shrink(),
                         ),
                         const SizedBox(height: 30),
-                        Responsive(
-                          desktop: GlassButton(
-                            height: displayHeight(context) * 0.07,
-                            width: displayHeight(context) * 0.25,
-                            text: "Download CV",
-                            textSize: 24,
-                          ),
-                          tablet: GlassButton(
-                            height: displayHeight(context) * 0.07,
-                            width: displayHeight(context) * 0.25,
-                            text: "Download CV",
-                            textSize: 20,
-                          ),
-                          mobile: GlassButton(
-                            height: displayHeight(context) * 0.07,
-                            width: displayHeight(context) * 0.25,
-                            textSize: 20,
-                            text: "Download CV",
-                          ),
-                        ),
+                        buildResponsiveCVButton(context),
                       ],
                     ),
                   ),
@@ -180,7 +74,98 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
+  Widget buildResponsiveSalutation() {
+    return Responsive(
+      desktop: buildSalutationText("Hi, I'm Ankit", 30),
+      tablet: buildSalutationText("Hi, I'm Ankit", 30),
+      mobile: buildSalutationText("Hi, I'm Ankit", 30),
+    );
+  }
+
+  Widget buildSalutationText(String text, double fontSize) {
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Text(
+        text,
+        style: salutationTextStyle(fontSize),
+      ),
+    );
+  }
+
+  Widget buildResponsiveTitle() {
+    return Responsive(
+      desktop: buildTitleText("Flutter Developer", 72),
+      tablet: buildTitleText("Flutter Developer", 64),
+      mobile: buildTitleText("Flutter Developer", 58, isPadded: true),
+    );
+  }
+
+  Widget buildTitleText(String text, double fontSize, {bool isPadded = false}) {
+    return Padding(
+      padding: isPadded
+          ? const EdgeInsets.symmetric(horizontal: 32.0)
+          : EdgeInsets.zero,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(
+          text,
+          style: titleText(fontSize),
+          maxLines: 2,
+        ),
+      ),
+    );
+  }
+
+  Widget buildResponsiveDescription() {
+    return Responsive(
+      desktop: buildDescriptionText("Crafting innovative Flutter applications, with captivating design \nfor better user experiences."),
+      tablet: buildDescriptionText("Crafting innovative Flutter applications, with captivating design \nfor better user experiences."),
+      mobile: buildDescriptionText("Crafting innovative Flutter applications, with captivating design \nfor better user experiences.", isPadded: true),
+    );
+  }
+
+  Widget buildDescriptionText(String text, {bool isPadded = false}) {
+    return Padding(
+      padding: isPadded
+          ? const EdgeInsets.symmetric(horizontal: 16.0)
+          : EdgeInsets.zero,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(
+          text,
+          style: normalText(20),
+          maxLines: 2,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+
+  Widget buildResponsiveCVButton(BuildContext context) {
+    return Responsive(
+      desktop: GlassButton(
+        height: displayHeight(context) * 0.07,
+        width: displayHeight(context) * 0.25,
+        text: "Download CV",
+        textSize: 24,
+      ),
+      tablet: GlassButton(
+        height: displayHeight(context) * 0.07,
+        width: displayHeight(context) * 0.25,
+        text: "Download CV",
+        textSize: 20,
+      ),
+      mobile: GlassButton(
+        height: displayHeight(context) * 0.07,
+        width: displayHeight(context) * 0.25,
+        text: "Download CV",
+        textSize: 20,
+      ),
+    );
+  }
 }
+
 
 class ScrollIndicator extends StatefulWidget {
   const ScrollIndicator({super.key});

@@ -69,7 +69,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
       imageUrl: "Artworks_Images.png",
       githubLink: "https://github.com/yourusername/ayehigh",
       liveLink: "https://artwork-images.netlify.app/",
-      technologies: ["Flutter"],
+      technologies: ["Flutter", "Netlify"],
       type: ProjectType.web,
     ),
 
@@ -94,8 +94,6 @@ class _ProjectsPageState extends State<ProjectsPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Get the screen width
-    double screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
       color: const Color(0xFF1E1E1E),
@@ -483,7 +481,6 @@ enum ProjectFilter {
   all,
   apps,
   websites,
-  designs,
 }
 
 enum ProjectType {
@@ -592,15 +589,32 @@ class _ProjectCardState extends State<ProjectCard> {
                         child: Stack(
                           children: [
                             Container(
-                              height: double.infinity,
-                              color: const Color(0xff0C1116),
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 16.0),
-                                child: Center(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.white.withOpacity(0.2),
+                                  width: 2,
+                                ),
+                                borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(12)),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(12)),
+                                child: ShaderMask(
+                                  shaderCallback: (bounds) => LinearGradient(
+                                    colors: [
+                                      Colors.black.withOpacity(0.0),
+                                      Colors.black.withOpacity(0.5),
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                  ).createShader(bounds),
+                                  blendMode: BlendMode.darken,
                                   child: Image.asset(
                                     widget.project.imageUrl,
                                     width: double.infinity,
-                                    fit: BoxFit.contain,
+                                    height: double.infinity,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
@@ -709,15 +723,32 @@ class _ProjectCardState extends State<ProjectCard> {
                       child: Stack(
                         children: [
                           Container(
-                            height: double.infinity,
-                            color: const Color(0xff0C1116),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 16.0),
-                              child: Center(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.white.withOpacity(0.2),
+                                width: 2,
+                              ),
+                              borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(12)),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(12)),
+                              child: ShaderMask(
+                                shaderCallback: (bounds) => LinearGradient(
+                                  colors: [
+                                    Colors.black.withOpacity(0.0),
+                                    Colors.black.withOpacity(0.5),
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                ).createShader(bounds),
+                                blendMode: BlendMode.darken,
                                 child: Image.asset(
                                   widget.project.imageUrl,
                                   width: double.infinity,
-                                  fit: BoxFit.contain,
+                                  height: double.infinity,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
