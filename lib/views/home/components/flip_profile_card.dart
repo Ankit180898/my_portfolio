@@ -7,7 +7,6 @@ import 'package:portfolio/views/responsive.dart';
 class FlipCardProfile extends StatelessWidget {
   const FlipCardProfile({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return Responsive(
@@ -80,9 +79,7 @@ class FlipCardProfile extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(displayWidth(context) * 0.02),
         child: Image.asset(
-          
           "logo.png",
-          color: Colors.white,
           fit: BoxFit.contain,
         ),
       ),

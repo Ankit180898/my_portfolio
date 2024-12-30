@@ -30,36 +30,33 @@ TextStyle titleText(double size) => GoogleFonts.epilogue(
 //20
 TextStyle normalText(double size, {Color? textColor}) => GoogleFonts.poppins(
       textStyle: TextStyle(
-          color: textColor ?? iconColor, fontSize: size, fontWeight: FontWeight.normal),
+          color: textColor ?? iconColor,
+          fontSize: size,
+          fontWeight: FontWeight.normal),
     );
 
 final List<Project> projects = [
-    Project(
+  Project(
       title: 'AI Chatbot Development',
       subtitle: 'Creating an Intelligent Conversational Agent',
-      projectLinks: ""
-    ),
-    Project(
+      projectLinks: ""),
+  Project(
       title: 'Mobile App Development',
       subtitle: 'Building a Cross-Platform App',
-      projectLinks: ""
-    ),
-    Project(
+      projectLinks: ""),
+  Project(
       title: 'Web Application Development',
       subtitle: 'Developing a Responsive Web App',
-      projectLinks: ""
-    ),
-    Project(
+      projectLinks: ""),
+  Project(
       title: 'Machine Learning Model',
       subtitle: 'Training a Predictive Model',
-      projectLinks: ""
-    ),
-    Project(
+      projectLinks: ""),
+  Project(
       title: 'Data Analysis Project',
       subtitle: 'Analyzing Data for Insights',
-      projectLinks: ""
-    ),
-  ];
+      projectLinks: ""),
+];
 
 /// Default padding used throughout the app
 const double kDefaultPadding = 20.0;
