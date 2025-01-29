@@ -4,6 +4,18 @@ import 'package:portfolio/res/constants.dart';
 import 'package:portfolio/views/responsive.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+enum ProjectFilter {
+  all,
+  apps,
+  websites,
+}
+
+enum ProjectType {
+  app,
+  web,
+  design,
+}
+
 class ProjectsPage extends StatefulWidget {
   const ProjectsPage({super.key});
 
@@ -43,6 +55,15 @@ class _ProjectsPageState extends State<ProjectsPage> {
       technologies: ["Flutter", "Firebase", "Vercel"],
       type: ProjectType.web,
     ),
+    Project(
+      title: "BlogD",
+      description: "BlogD is a blogging app",
+      imageUrl: "7.png",
+      githubLink: "https://github.com/Ankit180898/blog_app",
+      technologies: ["Flutter", "Supabase"],
+      type: ProjectType.app,
+    ),
+
     Project(
       title: "FlutterStack",
       description:
@@ -92,410 +113,123 @@ class _ProjectsPageState extends State<ProjectsPage> {
     }).toList();
   }
 
+  Widget _buildFilterButton(String filter, String label, BuildContext context) {
+    bool isSelected = selectedFilter == filter;
+    bool isFirst = filter == 'all';
+    bool isLast = filter == 'websites';
+
+    return Expanded(
+      child: GestureDetector(
+        onTap: () => setState(() => selectedFilter = filter),
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            vertical: Responsive.isMobile(context) ? 8.0 : 12.0,
+          ),
+          decoration: BoxDecoration(
+            color: isSelected ? buttonColor : Colors.transparent,
+            borderRadius: BorderRadius.horizontal(
+              left: isFirst ? const Radius.circular(24.0) : Radius.zero,
+              right: isLast ? const Radius.circular(24.0) : Radius.zero,
+            ),
+            border: Border.all(
+              color: isSelected ? buttonColor : Colors.grey.withAlpha(100),
+            ),
+          ),
+          child: Center(
+            child: Text(
+              label,
+              style: normalText(
+                Responsive.isMobile(context) ? 14 : 16,
+                textColor: isSelected ? Colors.white : buttonColor,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        double padding = constraints.maxWidth > 1200
+            ? 24
+            : constraints.maxWidth > 600
+                ? 16
+                : 12;
 
-    return Container(
-      color: const Color(0xFF1E1E1E),
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Projects",
-            style: titleText(48),
+        return Container(
+          color: const Color(0xFF1E1E1E),
+          padding: EdgeInsets.symmetric(
+            horizontal: padding,
+            vertical: Responsive.isMobile(context) ? 24 : 40,
           ),
-          const SizedBox(height: 8),
-          Text(
-            "From Concept to Creation",
-            style: normalText(16),
-          ),
-          const SizedBox(height: 40),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Projects",
+                style: titleText(Responsive.isMobile(context) ? 32 : 48),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                "From Concept to Creation",
+                style: normalText(Responsive.isMobile(context) ? 14 : 16),
+              ),
+              SizedBox(height: Responsive.isMobile(context) ? 24 : 40),
 
-          // Segmented Button
-          Responsive(
-            desktop: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Flexible(child: SizedBox()),
-                Flexible(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedFilter = 'all';
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      decoration: BoxDecoration(
-                        color: selectedFilter == 'all'
-                            ? buttonColor
-                            : Colors.transparent,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(24.0),
-                          bottomLeft: Radius.circular(24.0),
-                        ),
-                        border: Border.all(
-                          color: selectedFilter == 'all'
-                              ? buttonColor
-                              : Colors.grey.withAlpha(100),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'All',
-                          style: normalText(
-                            16, // Adjust font size for mobile
-                            textColor: selectedFilter == 'all'
-                                ? Colors.white
-                                : buttonColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+              // Filter buttons
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: constraints.maxWidth * 0.1,
                 ),
-                Flexible(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedFilter = 'apps';
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      decoration: BoxDecoration(
-                        color: selectedFilter == 'apps'
-                            ? buttonColor
-                            : Colors.transparent,
-                        border: Border.all(
-                          color: selectedFilter == 'apps'
-                              ? buttonColor
-                              : Colors.grey.withAlpha(100),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Apps',
-                          style: normalText(
-                            16, // Adjust font size for mobile
-                            textColor: selectedFilter == 'apps'
-                                ? Colors.white
-                                : buttonColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                child: Row(
+                  children: [
+                    _buildFilterButton('all', 'All', context),
+                    _buildFilterButton('apps', 'Apps', context),
+                    _buildFilterButton('websites', 'Websites', context),
+                  ],
                 ),
-                Flexible(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedFilter = 'websites';
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      decoration: BoxDecoration(
-                        color: selectedFilter == 'websites'
-                            ? buttonColor
-                            : Colors.transparent,
-                        borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(24.0),
-                          bottomRight: Radius.circular(24.0),
-                        ),
-                        border: Border.all(
-                          color: selectedFilter == 'websites'
-                              ? buttonColor
-                              : Colors.grey.withAlpha(100),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Websites',
-                          style: normalText(
-                            16, // Adjust font size for mobile
-                            textColor: selectedFilter == 'websites'
-                                ? Colors.white
-                                : buttonColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+              ),
+
+              SizedBox(height: Responsive.isMobile(context) ? 24 : 40),
+
+              // Projects grid
+              Responsive(
+                mobile: ProjectGrid(
+                  crossAxisCount: 1,
+                  childAspectRatio: 1.3,
+                  projects: filteredProjects,
                 ),
-                const Flexible(child: SizedBox()),
-              ],
-            ),
-            mobile: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedFilter = 'all';
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      decoration: BoxDecoration(
-                        color: selectedFilter == 'all'
-                            ? buttonColor
-                            : Colors.transparent,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(24.0),
-                          bottomLeft: Radius.circular(24.0),
-                        ),
-                        border: Border.all(
-                          color: selectedFilter == 'all'
-                              ? buttonColor
-                              : Colors.grey.withAlpha(100),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'All',
-                          style: normalText(
-                            14, // Adjust font size for mobile
-                            textColor: selectedFilter == 'all'
-                                ? Colors.white
-                                : buttonColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                tablet: ProjectGrid(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.85,
+                  projects: filteredProjects,
                 ),
-                Flexible(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedFilter = 'apps';
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      decoration: BoxDecoration(
-                        color: selectedFilter == 'apps'
-                            ? buttonColor
-                            : Colors.transparent,
-                        border: Border.all(
-                          color: selectedFilter == 'apps'
-                              ? buttonColor
-                              : Colors.grey.withAlpha(100),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Apps',
-                          style: normalText(
-                            14, // Adjust font size for mobile
-                            textColor: selectedFilter == 'apps'
-                                ? Colors.white
-                                : buttonColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                desktop: ProjectGrid(
+                  crossAxisCount: 3,
+                  childAspectRatio: 0.9,
+                  projects: filteredProjects,
                 ),
-                Flexible(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedFilter = 'websites';
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      decoration: BoxDecoration(
-                        color: selectedFilter == 'websites'
-                            ? buttonColor
-                            : Colors.transparent,
-                        borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(24.0),
-                          bottomRight: Radius.circular(24.0),
-                        ),
-                        border: Border.all(
-                          color: selectedFilter == 'websites'
-                              ? buttonColor
-                              : Colors.grey.withAlpha(100),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Websites',
-                          style: normalText(
-                            14, // Adjust font size for mobile
-                            textColor: selectedFilter == 'websites'
-                                ? Colors.white
-                                : buttonColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            tablet: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedFilter = 'all';
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      decoration: BoxDecoration(
-                        color: selectedFilter == 'all'
-                            ? buttonColor
-                            : Colors.transparent,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(24.0),
-                          bottomLeft: Radius.circular(24.0),
-                        ),
-                        border: Border.all(
-                          color: selectedFilter == 'all'
-                              ? buttonColor
-                              : Colors.grey.withAlpha(100),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'All',
-                          style: normalText(
-                            16, // Adjust font size for mobile
-                            textColor: selectedFilter == 'all'
-                                ? Colors.white
-                                : buttonColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Flexible(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedFilter = 'apps';
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      decoration: BoxDecoration(
-                        color: selectedFilter == 'apps'
-                            ? buttonColor
-                            : Colors.transparent,
-                        border: Border.all(
-                          color: selectedFilter == 'apps'
-                              ? buttonColor
-                              : Colors.grey.withAlpha(100),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Apps',
-                          style: normalText(
-                            16, // Adjust font size for mobile
-                            textColor: selectedFilter == 'apps'
-                                ? Colors.white
-                                : buttonColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Flexible(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedFilter = 'websites';
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      decoration: BoxDecoration(
-                        color: selectedFilter == 'websites'
-                            ? buttonColor
-                            : Colors.transparent,
-                        borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(24.0),
-                          bottomRight: Radius.circular(24.0),
-                        ),
-                        border: Border.all(
-                          color: selectedFilter == 'websites'
-                              ? buttonColor
-                              : Colors.grey.withAlpha(100),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Websites',
-                          style: normalText(
-                            16, // Adjust font size for mobile
-                            textColor: selectedFilter == 'websites'
-                                ? Colors.white
-                                : buttonColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-          const SizedBox(height: 20),
-          // Display selected filter
-          Text('Selected Filter: $selectedFilter'),
-          const SizedBox(height: 40),
-          Responsive(
-            mobile: ProjectGrid(
-              crossAxisCount: 1,
-              projects: filteredProjects,
-            ),
-            tablet: ProjectGrid(
-              crossAxisCount: 2,
-              projects: filteredProjects,
-            ),
-            desktop: ProjectGrid(
-              crossAxisCount: 3,
-              projects: filteredProjects,
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
 
-enum ProjectFilter {
-  all,
-  apps,
-  websites,
-}
-
-enum ProjectType {
-  app,
-  web,
-  design,
-}
-
 class ProjectGrid extends StatelessWidget {
   final int crossAxisCount;
+  final double childAspectRatio;
   final List<Project> projects;
 
   const ProjectGrid({
     super.key,
     required this.crossAxisCount,
+    required this.childAspectRatio,
     required this.projects,
   });
 
@@ -506,9 +240,9 @@ class ProjectGrid extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
-        childAspectRatio: 1.5,
-        crossAxisSpacing: 24,
-        mainAxisSpacing: 24,
+        childAspectRatio: childAspectRatio,
+        crossAxisSpacing: Responsive.isMobile(context) ? 16 : 24,
+        mainAxisSpacing: Responsive.isMobile(context) ? 16 : 24,
       ),
       itemCount: projects.length,
       itemBuilder: (context, index) => ProjectCard(project: projects[index]),
@@ -541,297 +275,133 @@ class _ProjectCardState extends State<ProjectCard> {
           setState(() => isHovered = false);
         }
       },
-      child: Responsive.isMobile(context) || Responsive.isTablet(context)
-          ? GestureDetector(
-              onTap: () {
-                // Check if the device is mobile or tablet
-                if (Responsive.isMobile(context) ||
-                    Responsive.isTablet(context)) {
-                  // For mobile and tablet, check for live link first
-                  if (widget.project.liveLink != null &&
-                      widget.project.liveLink!.isNotEmpty) {
-                    launchUrlString(
-                        widget.project.liveLink!); // Open the live link
-                  } else if (widget.project.githubLink != null &&
-                      widget.project.githubLink!.isNotEmpty) {
-                    launchUrlString(
-                        widget.project.githubLink!); // Open the GitHub link
-                  } else {
-                    // Show a message if neither link is available
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content:
-                              Text('No live page or GitHub link available.')),
-                    );
-                  }
-                }
-              },
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                transform: Matrix4.identity()..scale(isHovered ? 1.03 : 1.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: const Color(0xFF2D2D2D),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withAlpha(51), // 0.2 * 255 = 51
-                        blurRadius: 12,
-                        offset: const Offset(0, 4),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        transform: Matrix4.identity()..scale(isHovered ? 1.03 : 1.0),
+        child: Card(
+          elevation: isHovered ? 8 : 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          color: const Color(0xFF2D2D2D),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.2),
+                          width: 2,
+                        ),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(12),
+                        ),
                       ),
-                    ],
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(12),
+                        ),
+                        child: Image.asset(
+                          widget.project.imageUrl,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    if (isHovered && Responsive.isDesktop(context))
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.4),
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(12),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (widget.project.githubLink != null)
+                              IconButton(
+                                icon:
+                                    const Icon(Icons.code, color: Colors.white),
+                                onPressed: () => launchUrlString(
+                                  widget.project.githubLink!,
+                                ),
+                              ),
+                            if (widget.project.liveLink != null)
+                              IconButton(
+                                icon: const Icon(Icons.launch,
+                                    color: Colors.white),
+                                onPressed: () => launchUrlString(
+                                  widget.project.liveLink!,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: EdgeInsets.all(
+                    Responsive.isMobile(context) ? 12 : 16,
                   ),
-                  clipBehavior: Clip.antiAlias,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Text(
+                        widget.project.title,
+                        style: titleText(
+                          Responsive.isMobile(context) ? 18 : 20,
+                        ).copyWith(color: Colors.white),
+                      ),
+                      const SizedBox(height: 8),
                       Expanded(
-                        child: Stack(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.white.withOpacity(0.2),
-                                  width: 2,
-                                ),
-                                borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(12)),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(12)),
-                                child: ShaderMask(
-                                  shaderCallback: (bounds) => LinearGradient(
-                                    colors: [
-                                      Colors.black.withOpacity(0.0),
-                                      Colors.black.withOpacity(0.5),
-                                    ],
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                  ).createShader(bounds),
-                                  blendMode: BlendMode.darken,
-                                  child: Image.asset(
-                                    widget.project.imageUrl,
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            if (isHovered && (Responsive.isDesktop(context)))
-                              Container(
-                                color: Colors.black
-                                    .withAlpha(102), // 0.4 * 255 = 102
-                                child: Center(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      if (widget.project.githubLink != null)
-                                        IconButton(
-                                          splashColor:
-                                              Colors.black.withOpacity(0.4),
-                                          icon: const Icon(Icons.code,
-                                              color: Colors.white),
-                                          onPressed: () => launchUrlString(
-                                              widget.project.githubLink!),
-                                        ),
-                                      if (widget.project.liveLink != null)
-                                        IconButton(
-                                          icon: const Icon(Icons.launch,
-                                              color: Colors.white),
-                                          onPressed: () => launchUrlString(
-                                              widget.project.liveLink!),
-                                        ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                          ],
+                        child: Text(
+                          widget.project.description,
+                          style: normalText(
+                            Responsive.isMobile(context) ? 12 : 14,
+                          ),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              widget.project.title,
-                              style: titleText(20).copyWith(
-                                color: Colors.white,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              widget.project.description,
-                              style: normalText(14),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            const SizedBox(height: 12),
-                            Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              children: widget.project.technologies
-                                  .map((tech) => Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                          vertical: 4,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xFF3C3C3C),
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
-                                        child: Text(
-                                          tech,
-                                          style: normalText(12).copyWith(
-                                            color: Colors.white70,
-                                          ),
-                                        ),
-                                      ))
-                                  .toList(),
-                            ),
-                          ],
-                        ),
+                      const SizedBox(height: 8),
+                      Wrap(
+                        spacing: 6,
+                        runSpacing: 6,
+                        children: widget.project.technologies
+                            .map((tech) => Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 6,
+                                    vertical: 3,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFF3C3C3C),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Text(
+                                    tech,
+                                    style: normalText(
+                                      Responsive.isMobile(context) ? 10 : 12,
+                                    ).copyWith(color: Colors.white70),
+                                  ),
+                                ))
+                            .toList(),
                       ),
                     ],
                   ),
                 ),
               ),
-            )
-          : AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              transform: Matrix4.identity()..scale(isHovered ? 1.03 : 1.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: const Color(0xFF2D2D2D),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withAlpha(51), // 0.2 * 255 = 51
-                      blurRadius: 12,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                clipBehavior: Clip.antiAlias,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Stack(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.white.withOpacity(0.2),
-                                width: 2,
-                              ),
-                              borderRadius: const BorderRadius.vertical(
-                                  top: Radius.circular(12)),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.vertical(
-                                  top: Radius.circular(12)),
-                              child: ShaderMask(
-                                shaderCallback: (bounds) => LinearGradient(
-                                  colors: [
-                                    Colors.black.withOpacity(0.0),
-                                    Colors.black.withOpacity(0.5),
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                ).createShader(bounds),
-                                blendMode: BlendMode.darken,
-                                child: Image.asset(
-                                  widget.project.imageUrl,
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ),
-                          if (isHovered && (Responsive.isDesktop(context)))
-                            Container(
-                              color: Colors.black
-                                  .withAlpha(102), // 0.4 * 255 = 102
-                              child: Center(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    if (widget.project.githubLink != null)
-                                      IconButton(
-                                        splashColor:
-                                            Colors.black.withOpacity(0.4),
-                                        icon: const Icon(Icons.code,
-                                            color: Colors.white),
-                                        onPressed: () => launchUrlString(
-                                            widget.project.githubLink!),
-                                      ),
-                                    if (widget.project.liveLink != null)
-                                      IconButton(
-                                        icon: const Icon(Icons.launch,
-                                            color: Colors.white),
-                                        onPressed: () => launchUrlString(
-                                            widget.project.liveLink!),
-                                      ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.project.title,
-                            style: titleText(20).copyWith(
-                              color: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            widget.project.description,
-                            style: normalText(14),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 12),
-                          Wrap(
-                            spacing: 8,
-                            runSpacing: 8,
-                            children: widget.project.technologies
-                                .map((tech) => Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 4,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFF3C3C3C),
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: Text(
-                                        tech,
-                                        style: normalText(12).copyWith(
-                                          color: Colors.white70,
-                                        ),
-                                      ),
-                                    ))
-                                .toList(),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
