@@ -20,6 +20,7 @@ This repository contains the source code for my personal portfolio website built
 
 ## Screenshot
 ![Ankit Kumar _ Flutter Developer](https://github.com/Ankit180898/my_portfolio/assets/48925155/1108e47b-1e21-4762-95e5-2f4950adbaf8)
+![Ankit Kumar _ Flutter Developer](https://github.com/user-attachments/assets/6fec8ae6-a9df-41d4-a7cb-d6d8136496a1)
 
 
 
