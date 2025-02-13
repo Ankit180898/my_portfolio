@@ -262,6 +262,17 @@ class ProjectCard extends StatefulWidget {
 class _ProjectCardState extends State<ProjectCard> {
   bool isHovered = false;
 
+  void _handleTap() {
+    if (Responsive.isMobile(context)) {
+      // Prioritize live link over GitHub link
+      if (widget.project.liveLink != null) {
+        launchUrlString(widget.project.liveLink!);
+      } else if (widget.project.githubLink != null) {
+        launchUrlString(widget.project.githubLink!);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
@@ -275,130 +286,133 @@ class _ProjectCardState extends State<ProjectCard> {
           setState(() => isHovered = false);
         }
       },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        transform: Matrix4.identity()..scale(isHovered ? 1.03 : 1.0),
-        child: Card(
-          elevation: isHovered ? 8 : 4,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          color: const Color(0xFF2D2D2D),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 2,
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.white.withOpacity(0.2),
-                          width: 2,
-                        ),
-                        borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(12),
-                        ),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(12),
-                        ),
-                        child: Image.asset(
-                          widget.project.imageUrl,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    if (isHovered && Responsive.isDesktop(context))
+      child: GestureDetector(
+        onTap: _handleTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          transform: Matrix4.identity()..scale(isHovered ? 1.03 : 1.0),
+          child: Card(
+            elevation: isHovered ? 8 : 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            color: const Color(0xFF2D2D2D),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.4),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.2),
+                            width: 2,
+                          ),
                           borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(12),
                           ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            if (widget.project.githubLink != null)
-                              IconButton(
-                                icon:
-                                    const Icon(Icons.code, color: Colors.white),
-                                onPressed: () => launchUrlString(
-                                  widget.project.githubLink!,
-                                ),
-                              ),
-                            if (widget.project.liveLink != null)
-                              IconButton(
-                                icon: const Icon(Icons.launch,
-                                    color: Colors.white),
-                                onPressed: () => launchUrlString(
-                                  widget.project.liveLink!,
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: EdgeInsets.all(
-                    Responsive.isMobile(context) ? 12 : 16,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.project.title,
-                        style: titleText(
-                          Responsive.isMobile(context) ? 18 : 20,
-                        ).copyWith(color: Colors.white),
-                      ),
-                      const SizedBox(height: 8),
-                      Expanded(
-                        child: Text(
-                          widget.project.description,
-                          style: normalText(
-                            Responsive.isMobile(context) ? 12 : 14,
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(12),
                           ),
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
+                          child: Image.asset(
+                            widget.project.imageUrl,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                      const SizedBox(height: 8),
-                      Wrap(
-                        spacing: 6,
-                        runSpacing: 6,
-                        children: widget.project.technologies
-                            .map((tech) => Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 6,
-                                    vertical: 3,
+                      if (isHovered && Responsive.isDesktop(context))
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.4),
+                            borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(12),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (widget.project.githubLink != null)
+                                IconButton(
+                                  icon: const Icon(Icons.code,
+                                      color: Colors.white),
+                                  onPressed: () => launchUrlString(
+                                    widget.project.githubLink!,
                                   ),
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFF3C3C3C),
-                                    borderRadius: BorderRadius.circular(4),
+                                ),
+                              if (widget.project.liveLink != null)
+                                IconButton(
+                                  icon: const Icon(Icons.launch,
+                                      color: Colors.white),
+                                  onPressed: () => launchUrlString(
+                                    widget.project.liveLink!,
                                   ),
-                                  child: Text(
-                                    tech,
-                                    style: normalText(
-                                      Responsive.isMobile(context) ? 10 : 12,
-                                    ).copyWith(color: Colors.white70),
-                                  ),
-                                ))
-                            .toList(),
-                      ),
+                                ),
+                            ],
+                          ),
+                        ),
                     ],
                   ),
                 ),
-              ),
-            ],
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: EdgeInsets.all(
+                      Responsive.isMobile(context) ? 12 : 16,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.project.title,
+                          style: titleText(
+                            Responsive.isMobile(context) ? 18 : 20,
+                          ).copyWith(color: Colors.white),
+                        ),
+                        const SizedBox(height: 8),
+                        Expanded(
+                          child: Text(
+                            widget.project.description,
+                            style: normalText(
+                              Responsive.isMobile(context) ? 12 : 14,
+                            ),
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Wrap(
+                          spacing: 6,
+                          runSpacing: 6,
+                          children: widget.project.technologies
+                              .map((tech) => Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 6,
+                                      vertical: 3,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFF3C3C3C),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Text(
+                                      tech,
+                                      style: normalText(
+                                        Responsive.isMobile(context) ? 10 : 12,
+                                      ).copyWith(color: Colors.white70),
+                                    ),
+                                  ))
+                              .toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
