@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/res/constants.dart';
 
@@ -74,15 +75,20 @@ class AnimatedImageContainerState extends State<AnimatedImageContainer>
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                 ),
-                child: Image.asset(
-                  "logo.png",
-                  height: 30,
-                  filterQuality: FilterQuality.high,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return const Icon(Icons.error, size: 30, color: Colors.red);
-                  },
-                ),
+                child: kIsWeb
+                    ? Image.asset(
+                        color:
+                            Colors.white, // Background to avoid black rendering
+                        "logo.png",
+                        height: 30,
+                        filterQuality: FilterQuality.high,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.error,
+                              size: 30, color: Colors.red);
+                        },
+                      )
+                    : Image.asset("assets/web/logo.png"),
               ),
             ),
           ),
