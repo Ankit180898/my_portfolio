@@ -79,16 +79,23 @@ class AnimatedImageContainerState extends State<AnimatedImageContainer>
                     ? Image.asset(
                         color:
                             Colors.white, // Background to avoid black rendering
-                        "logo.png",
-                        height: 30,
+                        "logo1.png",
+                        filterQuality: FilterQuality.high,
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.error,
+                              size: 30, color: Colors.red);
+                        },
+                      )
+                    : Image.asset(
+                        "assets/web/logo.png",
                         filterQuality: FilterQuality.high,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return const Icon(Icons.error,
                               size: 30, color: Colors.red);
                         },
-                      )
-                    : Image.asset("assets/web/logo.png"),
+                      ),
               ),
             ),
           ),

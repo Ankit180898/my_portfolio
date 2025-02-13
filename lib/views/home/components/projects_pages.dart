@@ -273,7 +273,7 @@ class _ProjectCardState extends State<ProjectCard> {
   @override
   Widget build(BuildContext context) {
     final isMobile = Responsive.isMobile(context);
-    
+
     return MouseRegion(
       onEnter: (_) => setState(() => isHovered = !isMobile),
       onExit: (_) => setState(() => isHovered = false),
@@ -315,14 +315,16 @@ class _ProjectCardState extends State<ProjectCard> {
                           children: [
                             if (widget.project.githubLink != null)
                               IconButton(
-                                icon: const Icon(Icons.code, color: Colors.white),
+                                icon:
+                                    const Icon(Icons.code, color: Colors.white),
                                 onPressed: () => launchUrlString(
                                   widget.project.githubLink!,
                                 ),
                               ),
                             if (widget.project.liveLink != null)
                               IconButton(
-                                icon: const Icon(Icons.launch, color: Colors.white),
+                                icon: const Icon(Icons.launch,
+                                    color: Colors.white),
                                 onPressed: () => launchUrlString(
                                   widget.project.liveLink!,
                                 ),
