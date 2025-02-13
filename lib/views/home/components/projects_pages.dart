@@ -264,7 +264,6 @@ class _ProjectCardState extends State<ProjectCard> {
 
   void _handleTap() {
     if (Responsive.isMobile(context)) {
-      // Prioritize live link over GitHub link
       if (widget.project.liveLink != null) {
         launchUrlString(widget.project.liveLink!);
       } else if (widget.project.githubLink != null) {
@@ -375,13 +374,15 @@ class _ProjectCardState extends State<ProjectCard> {
                         ),
                         const SizedBox(height: 8),
                         Expanded(
-                          child: Text(
-                            widget.project.description,
-                            style: normalText(
-                              Responsive.isMobile(context) ? 12 : 14,
+                          child: SingleChildScrollView(
+                            child: Text(
+                              widget.project.description,
+                              style: normalText(
+                                Responsive.isMobile(context) ? 12 : 14,
+                              ),
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         const SizedBox(height: 8),
