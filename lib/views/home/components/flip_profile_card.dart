@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/res/constants.dart';
 import 'package:flip_card/flip_card.dart';
@@ -78,10 +79,12 @@ class FlipCardProfile extends StatelessWidget {
       ),
       child: Padding(
         padding: EdgeInsets.all(displayWidth(context) * 0.02),
-        child: Image.asset(
-          "logo.png",
-          fit: BoxFit.contain,
-        ),
+        child: kIsWeb
+            ? Image.asset(
+                "logo.png",
+                fit: BoxFit.contain,
+              )
+            : Image.asset("assets/web/logo.png"),
       ),
     );
   }
