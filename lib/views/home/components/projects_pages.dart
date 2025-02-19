@@ -84,6 +84,15 @@ class _ProjectsPageState extends State<ProjectsPage> {
       type: ProjectType.app,
     ),
     Project(
+      title: "News App",
+      description:
+          "The News App is a Flutter-based application that fetches and displays the latest news articles using NewsAPI. The app follows the MVVM architecture with GetX for state management",
+      imageUrl: "8.webp",
+      githubLink: "https://github.com/Ankit180898/news_app",
+      technologies: ["Flutter", "GetX", "NewsAPI"],
+      type: ProjectType.app,
+    ),
+    Project(
       title: "Artwork Images",
       description:
           "Artwork Images is a platform where you can find images of some of best artists.",
@@ -154,7 +163,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isMobile = Responsive.isMobile(context);
-        final isTablet = Responsive.isTablet(context);
+        Responsive.isTablet(context);
         final padding = constraints.maxWidth > 1200
             ? 80.0
             : constraints.maxWidth > 600
