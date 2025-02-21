@@ -93,6 +93,15 @@ class _ProjectsPageState extends State<ProjectsPage> {
       type: ProjectType.app,
     ),
     Project(
+      title: "Stock Search",
+      description:
+          "A Flutter application that provides stock price and financial information, helping users make informed trading and investment decisions.",
+      imageUrl: "9.webp",
+      githubLink: "https://github.com/Ankit180898/stock_search",
+      technologies: ["Flutter", "GetX"],
+      type: ProjectType.app,
+    ),
+    Project(
       title: "Artwork Images",
       description:
           "Artwork Images is a platform where you can find images of some of best artists.",
