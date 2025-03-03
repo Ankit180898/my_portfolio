@@ -300,156 +300,186 @@ class _ProjectCardState extends State<ProjectCard> {
     final isMobile = Responsive.isMobile(context);
 
     return MouseRegion(
-      onEnter: (_) => setState(() => isHovered = !isMobile),
-      onExit: (_) => setState(() => isHovered = false),
+      onEnter: (_) {
+        if (Responsive.isDesktop(context)) {
+          setState(() => isHovered = true);
+        }
+      },
+      onExit: (_) {
+        if (Responsive.isDesktop(context)) {
+          setState(() => isHovered = false);
+        }
+      },
       child: GestureDetector(
         onTap: _handleTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          transform: Matrix4.identity()..scale(isHovered ? 1.02 : 1.0),
-          child: Card(
-              elevation: isHovered ? 8 : 2,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
+          transform: Matrix4.identity()..scale(isHovered ? 1.03 : 1.0),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
               color: const Color(0xFF2D2D2D),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: LayoutBuilder(
-                      // Use LayoutBuilder for dynamic height based on available space
-                      builder: (context, constraints) {
-                        return Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            AspectRatio(
-                              // Add AspectRatio
-                              aspectRatio: 16 /
-                                  9, // Example aspect ratio (adjust as needed)
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(16),
-                                  ),
-                                  image: DecorationImage(
-                                    image: AssetImage(widget.project.imageUrl),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withAlpha(51),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            clipBehavior: Clip.antiAlias,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Image Section
+                Expanded(
+                  flex: 3,
+                  child: Stack(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.2),
+                            width: 2,
+                          ),
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(12),
+                          ),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(12),
+                          ),
+                          child: ShaderMask(
+                            shaderCallback: (bounds) => LinearGradient(
+                              colors: [
+                                Colors.black.withOpacity(0.0),
+                                Colors.black.withOpacity(0.5),
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ).createShader(bounds),
+                            blendMode: BlendMode.darken,
+                            child: Image.asset(
+                              widget.project.imageUrl,
+                              width: double.infinity,
+                              height: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                      if (isHovered || isMobile)
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 8,
+                              horizontal: 12,
+                            ),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                                colors: [
+                                  Colors.black.withOpacity(0.8),
+                                  Colors.transparent,
+                                ],
                               ),
                             ),
-                            if (isHovered || isMobile)
-                              Positioned(
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 8,
-                                    horizontal: 12,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.bottomCenter,
-                                      end: Alignment.topCenter,
-                                      colors: [
-                                        Colors.black.withOpacity(0.8),
-                                        Colors.transparent,
-                                      ],
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                if (widget.project.githubLink != null)
+                                  _buildIconButton(
+                                    Icons.code,
+                                    () => launchUrlString(
+                                      widget.project.githubLink!,
                                     ),
                                   ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      if (widget.project.githubLink != null)
-                                        _buildIconButton(
-                                          Icons.code,
-                                          () => launchUrlString(
-                                              widget.project.githubLink!),
-                                        ),
-                                      if (widget.project.liveLink != null)
-                                        _buildIconButton(
-                                          Icons.launch,
-                                          () => launchUrlString(
-                                              widget.project.liveLink!),
-                                        ),
-                                    ],
+                                if (widget.project.liveLink != null)
+                                  _buildIconButton(
+                                    Icons.launch,
+                                    () => launchUrlString(
+                                      widget.project.liveLink!,
+                                    ),
                                   ),
-                                ),
-                              ),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.project.title,
-                            style: titleText(isMobile ? 16 : 18).copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                              ],
                             ),
-                            maxLines: 1,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+                // Content Section
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.project.title,
+                          style: titleText(isMobile ? 16 : 18).copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 8),
+                        Expanded(
+                          child: Text(
+                            widget.project.description,
+                            style: normalText(isMobile ? 12 : 14).copyWith(
+                              color: Colors.white70,
+                              height: 1.4,
+                            ),
+                            maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          const SizedBox(height: 8),
-                          Expanded(
-                            child: Text(
-                              widget.project.description,
-                              style: normalText(isMobile ? 12 : 14).copyWith(
-                                color: Colors.white70,
-                                height: 1.4,
-                              ),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          SizedBox(
-                            child: Wrap(
-                              children: widget.project.technologies.map((tech) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(right: 8),
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 4,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: buttonColor.withOpacity(0.2),
-                                      borderRadius: BorderRadius.circular(12),
-                                      border: Border.all(
-                                        color: buttonColor.withOpacity(0.3),
-                                        width: 1,
-                                      ),
-                                    ),
-                                    child: Text(
-                                      tech,
-                                      style: TextStyle(
-                                        fontSize: isMobile ? 10 : 12,
-                                        color: buttonColor,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
+                        ),
+                        const SizedBox(height: 12),
+                        Wrap(
+                          children: widget.project.technologies.map((tech) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.only(right: 8, bottom: 8),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: buttonColor.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: buttonColor.withOpacity(0.3),
+                                    width: 1,
                                   ),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                        ],
-                      ),
+                                ),
+                                child: Text(
+                                  tech,
+                                  style: TextStyle(
+                                    fontSize: isMobile ? 10 : 12,
+                                    color: buttonColor,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              )),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
