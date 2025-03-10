@@ -10,7 +10,8 @@ class GlassButton extends StatefulWidget {
   final double width;
   double textSize;
 
-  GlassButton({super.key, 
+  GlassButton({
+    super.key,
     required this.text,
     required this.textSize,
     required this.height,
@@ -29,8 +30,7 @@ class _GlassButtonState extends State<GlassButton> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        launchUrlString(
-            'https://drive.google.com/file/d/1lZJz7b190mjf756-wTrnKvPTAS4o8wPz/view?usp=sharing');
+        launchUrlString('https://drive.google.com/file/d/1lZJz7b190mjf756-wTrnKvPTAS4o8wPz/view?usp=sharing');
       },
       onHover: (hover) {
         setState(() {
@@ -44,14 +44,14 @@ class _GlassButtonState extends State<GlassButton> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(widget.height * 0.5),
           gradient: _isHovered == false
-              ? LinearGradient(colors: [
-                  Colors.white70.withOpacity(0.2),
-                  buttonColor.withOpacity(0.2)
-                ], begin: Alignment.topLeft, end: Alignment.bottomRight)
-              : LinearGradient(colors: [
-                  buttonColor.withOpacity(0.3),
-                  buttonColor.withOpacity(0.3)
-                ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+              ? LinearGradient(
+                  colors: [Colors.white70.withOpacity(0.2), buttonColor.withOpacity(0.2)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight)
+              : LinearGradient(
+                  colors: [buttonColor.withOpacity(0.3), buttonColor.withOpacity(0.3)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight),
           border: Border.all(
             color: _isHovered ? buttonColor : Colors.white70.withOpacity(0.2),
             width: _isHovered ? 3 : 2,
@@ -60,8 +60,7 @@ class _GlassButtonState extends State<GlassButton> {
         child: Center(
           child: Padding(
             padding: EdgeInsets.all(widget.height * 0.15),
-            child: FittedBox(
-                child: Text(widget.text, style: normalText(widget.textSize))),
+            child: FittedBox(child: Text(widget.text, style: normalText(widget.textSize))),
           ),
         ),
       ),

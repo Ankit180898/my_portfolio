@@ -20,7 +20,7 @@ class SocialMediaIcon extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
       child: SvgPicture.asset(
         icon,
-        color: iconColor,
+        color: textColor,
         height: height,
         width: width,
       ),

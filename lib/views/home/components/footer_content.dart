@@ -17,7 +17,7 @@ class FooterContent extends StatelessWidget {
           children: [
             const Divider(
               thickness: 0.1,
-              color: iconColor,
+              color: textColor,
             ),
             const SizedBox(
               height: 5,
@@ -61,7 +61,7 @@ class FooterContent extends StatelessWidget {
           children: [
             const Divider(
               thickness: 0.1,
-              color: iconColor,
+              color: textColor,
             ),
             const SizedBox(
               height: 5,
@@ -105,7 +105,7 @@ class FooterContent extends StatelessWidget {
           children: [
             const Divider(
               thickness: 0.1,
-              color: iconColor,
+              color: textColor,
             ),
             const SizedBox(
               height: 5,
