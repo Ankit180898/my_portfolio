@@ -36,7 +36,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_svg: ^2.0.10+1
   get: ^4.6.6
-  glassmorphism: ^3.0.0
+  glassmorphism: 
   google_fonts: 
   url_launcher: ^6.2.5
 
