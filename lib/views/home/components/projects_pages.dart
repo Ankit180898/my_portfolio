@@ -56,6 +56,15 @@ class _ProjectsPageState extends State<ProjectsPage> {
       type: ProjectType.web,
     ),
     Project(
+      title: "Vision AI",
+      description:
+          "a mobile app that transforms text prompts into AI-generated images.",
+      imageUrl: "10.webp",
+      githubLink: "https://github.com/Ankit180898/text_to_image",
+      technologies: ["Flutter", "GetX","Hugging Face"],
+      type: ProjectType.app,
+    ),
+    Project(
       title: "BlogD",
       description: "BlogD is a blogging app",
       imageUrl: "7.png",
