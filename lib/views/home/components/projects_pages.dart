@@ -41,9 +41,20 @@ class _ProjectsPageState extends State<ProjectsPage> {
       description:
           "Home is a social networking app designed to support and connect individuals starting their new life in a foreign country. Our mission is to create a welcoming community where users can share experiences, ask questions, and find helpful resources.",
       imageUrl: "3.png",
-      liveLink: "https://play.google.com/store/apps/details?id=com.home4im&hl=en_US",
+      liveLink:
+          "https://play.google.com/store/apps/details?id=com.home4im&hl=en_US",
       technologies: ["Flutter", "Firebase", "Playstore"],
       type: ProjectType.app,
+    ),
+      Project(
+      title: "MonkeyType Clone",
+      description:
+          "A typing speed tester inspired by Monkeytype, built using Flutter Web. It features a dark theme, real-time typing accuracy with color-coded feedback, customizable test modes (words, punctuation, quotes), and a detailed results summary. The app aims to help users improve their typing speed and accuracy in an engaging way.",
+      imageUrl: "12.webp",
+      liveLink: "https://monkeytypes.netlify.app/",
+      githubLink: "https://github.com/Ankit180898?tab=repositories",
+      technologies: ["Flutter", "Dart", "Netlify"],
+      type: ProjectType.web,
     ),
     Project(
       title: "Home|Website",
@@ -54,9 +65,12 @@ class _ProjectsPageState extends State<ProjectsPage> {
       technologies: ["Flutter", "Firebase", "Vercel"],
       type: ProjectType.web,
     ),
+  
+
     Project(
       title: "Vision AI",
-      description: "a mobile app that transforms text prompts into AI-generated images.",
+      description:
+          "a mobile app that transforms text prompts into AI-generated images.",
       imageUrl: "10.webp",
       githubLink: "https://github.com/Ankit180898/text_to_image",
       technologies: ["Flutter", "GetX", "Hugging Face"],
@@ -71,7 +85,17 @@ class _ProjectsPageState extends State<ProjectsPage> {
       technologies: ["Flutter", "GetX", "Pdf"],
       type: ProjectType.app,
     ),
+   
     Project(
+      title: "Spendify",
+      description:
+          "An Expense Tracker App to manage your daily expenses. Build using Supabase and Flutter.",
+      imageUrl: "Spendify.png",
+      githubLink: "https://github.com/Ankit180898/spendify",
+      technologies: ["Flutter", "Supabase"],
+      type: ProjectType.app,
+    ),
+     Project(
       title: "BlogD",
       description: "BlogD is a blogging app",
       imageUrl: "7.png",
@@ -80,16 +104,9 @@ class _ProjectsPageState extends State<ProjectsPage> {
       type: ProjectType.app,
     ),
     Project(
-      title: "Spendify",
-      description: "An Expense Tracker App to manage your daily expenses. Build using Supabase and Flutter.",
-      imageUrl: "Spendify.png",
-      githubLink: "https://github.com/Ankit180898/spendify",
-      technologies: ["Flutter", "Supabase"],
-      type: ProjectType.app,
-    ),
-    Project(
       title: "FlutterStack",
-      description: "Curated resources for Flutter Developers. A community-driven platform.",
+      description:
+          "Curated resources for Flutter Developers. A community-driven platform.",
       imageUrl: "FlutterStack.png",
       githubLink: "https://github.com/Ankit180898/flutter_resource_gallery",
       liveLink: "https://flutterstack.netlify.app/",
@@ -117,7 +134,8 @@ class _ProjectsPageState extends State<ProjectsPage> {
 
     Project(
       title: "Artwork Images",
-      description: "Artwork Images is a platform where you can find images of some of best artists.",
+      description:
+          "Artwork Images is a platform where you can find images of some of best artists.",
       imageUrl: "Artworks_Images.png",
       githubLink: "https://github.com/yourusername/ayehigh",
       liveLink: "https://artwork-images.netlify.app/",
@@ -459,7 +477,8 @@ class _ProjectCardState extends State<ProjectCard> {
                         Wrap(
                           children: widget.project.technologies.map((tech) {
                             return Padding(
-                              padding: const EdgeInsets.only(right: 8, bottom: 8),
+                              padding:
+                                  const EdgeInsets.only(right: 8, bottom: 8),
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 10,
