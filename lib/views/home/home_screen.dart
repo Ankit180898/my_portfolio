@@ -119,9 +119,13 @@ class HomeScreen extends StatelessWidget {
 
   Widget buildResponsiveDescription() {
     return Responsive(
-      desktop: buildDescriptionText("Crafting innovative Flutter applications, with captivating design \nfor better user experiences."),
-      tablet: buildDescriptionText("Crafting innovative Flutter applications, with captivating design \nfor better user experiences."),
-      mobile: buildDescriptionText("Crafting innovative Flutter applications, with captivating design \nfor better user experiences.", isPadded: true),
+      desktop: buildDescriptionText(
+          "Crafting innovative Flutter applications, with captivating design \nfor better user experiences."),
+      tablet: buildDescriptionText(
+          "Crafting innovative Flutter applications, with captivating design \nfor better user experiences."),
+      mobile: buildDescriptionText(
+          "Crafting innovative Flutter applications, with captivating design \nfor better user experiences.",
+          isPadded: true),
     );
   }
 
@@ -165,7 +169,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
 
 class ScrollIndicator extends StatefulWidget {
   const ScrollIndicator({super.key});
